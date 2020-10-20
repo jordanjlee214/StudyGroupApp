@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "870261688977",
+    "firebase_url": "https://studygroupapp-33f55.firebaseio.com",
+    "project_id": "studygroupapp-33f55",
+    "storage_bucket": "studygroupapp-33f55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870261688977:android:41cf3d52a01cdebee38d30",
+        "android_client_info": {
+          "package_name": "com.leejordan.studygroupapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870261688977-55st2p3s83rl5lmuipfk3uu8hgo95m8h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leejordan.studygroupapp",
+            "certificate_hash": "a4548b33ca4d6d18a4e49ebf819d77c567c68e22"
+          }
+        },
+        {
+          "client_id": "870261688977-1i2cb8d0knk64u29ff6ukqgs4sjhh0no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD91hodVVixcCihBU7evRRzGNx7lWIEi6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870261688977-1i2cb8d0knk64u29ff6ukqgs4sjhh0no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
