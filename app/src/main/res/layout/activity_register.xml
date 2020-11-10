@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
     android:background="@color/darkBackground"
-    android:backgroundTint="@color/darkBackground"
-    tools:context=".LoginActivity">
+    android:backgroundTint="@color/darkBackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/appname"
+        android:id="@+id/appname_register"
         android:text="@string/name"
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/nexa_bold"
@@ -32,7 +32,7 @@
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/nexa_light"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/appname"
+        app:layout_constraintBottom_toTopOf="@id/appname_register"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="40sp"
@@ -42,7 +42,7 @@
     </TextView>
 
     <EditText
-        android:id="@+id/emailInput_login"
+        android:id="@+id/emailInput_register"
         android:layout_width="360sp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -58,10 +58,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.4"/>
+        app:layout_constraintVertical_bias="0.42"/>
 
     <EditText
-        android:id="@+id/passwordInput_login"
+        android:id="@+id/passwordInput_register"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input"
@@ -77,18 +77,39 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.55" />
+
+    <EditText
+        android:id="@+id/confirmpasswordInput_register"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/confirm_password"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_book"
+        android:background="@drawable/input"
+        android:padding="8dp"
+        android:textSize="23sp"
+        android:drawableStart="@drawable/password_icon"
+        android:textColorHint="@color/gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.68"
+
+        />
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.71"
-        android:text="@string/sign_in"
+        app:layout_constraintVertical_bias="0.87"
+        android:text="@string/create_account"
         android:textAllCaps="false"
         android:background="@drawable/input"
         android:padding="10sp"
@@ -98,43 +119,5 @@
         android:backgroundTint="@color/colorPrimaryDark">
 
     </Button>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/signUp"
-        android:text="@string/signUp"
-        android:textColor="@color/mainTextColor"
-        android:fontFamily="@font/nexa_bold"
-        app:layout_constraintTop_toBottomOf="@id/signInButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textSize="23sp"
-        android:textAllCaps="false"
-        app:layout_constraintVertical_bias="0.25"
-        >
-    </TextView>
-
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.92"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        android:background="@drawable/input"
-        android:padding="10sp"
-        android:textSize="28sp"
-        android:textColor="@color/mainTextColor"
-        android:fontFamily="@font/nexa_bold"
-        android:backgroundTint="@color/blue">
-
-    </Button>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
