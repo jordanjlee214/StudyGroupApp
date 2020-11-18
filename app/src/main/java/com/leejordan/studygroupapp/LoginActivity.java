@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,6 +34,12 @@ public class LoginActivity extends AppCompatActivity {
                 sendToRegister();
             }
         });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logInUser();
+            }
+        });
 
     }
 
@@ -40,5 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
 
+    }
+
+    public void logInUser(){
+        String e = inputEmail.getText().toString();
+        String pw = inputPassword.getText().toString();
+        if (e.length() == 0 || pw.length() == 0){
+            Toast.makeText(LoginActivity.this, "Please fill out all fields first", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+        }
     }
 }
