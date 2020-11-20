@@ -1,13 +1,20 @@
 package com.leejordan.studygroupapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -16,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword;
     private Button signIn;
     private Button register;
+    private FirebaseAuth mAuth;
+    private ProgressDialog loadingBar;
 
 
     @Override
@@ -41,6 +50,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+
+        loadingBar = new ProgressDialog(this);
+
     }
 
     private void sendToRegister() {
@@ -56,7 +69,30 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please fill out all fields first", Toast.LENGTH_SHORT).show();
         }
         else{
+            loadingBar.setTitle("Sign in...");
+            loadingBar.setMessage("Please wait for a moment as we get you logged in...");
+            loadingBar.show();
+            loadingBar.setCanceledOnTouchOutside(true);
+            mAuth.signInWithEmailAndPassword(e, pw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    loadingBar.dismiss();
+                    if (task.isSuccessful()){
 
+                        Intent sendToMain = new Intent(LoginActivity.this, MainActivity.class);
+                        sendToMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(sendToMain);
+                        finish();
+
+                        Toast.makeText(LoginActivity.this, "You have successfully logged in.", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        String error = task.getException().getMessage();
+                        Toast.makeText(LoginActivity.this, "Uh oh! An error occurred: " + error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 }
