@@ -1,18 +1,26 @@
 package com.leejordan.studygroupapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference usersRef;
     private Button logOutTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
     }
 
@@ -39,6 +48,29 @@ public class MainActivity extends AppCompatActivity {
         {
             sendToLogin();
         }
+        else{
+            checkUserExistence();
+        }
+    }
+
+    private void checkUserExistence() {
+        final String current_user_id = mAuth.getCurrentUser().getUid();
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild(current_user_id)){ //user doesn't have data in the realtime database
+                    Log.i("ACCT", "Works");
+                    sendToSetup();
+                }
+                Log.i("ACCT", "has child");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void sendToLogin() {
@@ -47,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
+
+    private void sendToSetup() {
+        Intent setup = new Intent(MainActivity.this, SetupActivity.class);
+        setup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setup);
+        finish();
+    }
+
 
     public void logOut(){
         mAuth.signOut();

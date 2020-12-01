@@ -20,22 +20,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="60sp"
+        android:textSize="55sp"
         android:textAllCaps="false"
         app:layout_constraintVertical_bias="0.05"
         >
     </TextView>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="130sp"
-        android:layout_height="130sp"
+        android:layout_width="100sp"
+        android:layout_height="110sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/blank_profile"
         android:id="@+id/setup_profilePic"
-        app:layout_constraintVertical_bias="0.33"
+        app:layout_constraintVertical_bias="0.21"
         >
     </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -46,7 +46,7 @@
     android:hint="@string/inputFirstName"
     android:textColor="@color/black"
         android:singleLine="true"
-    android:textSize="19sp"
+    android:textSize="16sp"
     android:padding="10dp"
     android:fontFamily="@font/circular_book"
     android:background="@drawable/input"
@@ -55,7 +55,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintVertical_bias="0.55"/>
+    app:layout_constraintVertical_bias="0.41"/>
 
     <EditText
         android:id="@+id/setup_lastName"
@@ -64,7 +64,7 @@
         android:hint="@string/inputLastName"
         android:textColor="@color/black"
         android:singleLine="true"
-        android:textSize="19sp"
+        android:textSize="16sp"
         android:padding="10dp"
         android:fontFamily="@font/circular_book"
         android:background="@drawable/input"
@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.65"/>
+        app:layout_constraintVertical_bias="0.50"/>
 
     <EditText
         android:id="@+id/setup_username"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/inputUsername"
         android:textColor="@color/black"
-        android:textSize="19sp"
+        android:textSize="16sp"
         android:padding="10dp"
         android:singleLine="true"
         android:fontFamily="@font/circular_book"
@@ -91,15 +91,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.75"/>
+        app:layout_constraintVertical_bias="0.59"/>
 
     <EditText
-        android:id="@+id/setup_country"
+        android:id="@+id/setup_gender"
         android:layout_width="355sp"
         android:layout_height="wrap_content"
-        android:hint="@string/inputCountry"
+        android:hint="@string/inputGender"
         android:textColor="@color/black"
-        android:textSize="19sp"
+        android:textSize="16sp"
         android:singleLine="true"
         android:padding="10dp"
         android:fontFamily="@font/circular_book"
@@ -109,7 +109,44 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"/>
+        app:layout_constraintVertical_bias="0.68"/>
+
+    <EditText
+        android:id="@+id/setup_birthday"
+        android:layout_width="355sp"
+        android:layout_height="wrap_content"
+        android:hint="@string/inputBirthday"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:padding="10dp"
+        android:fontFamily="@font/circular_book"
+        android:inputType="date"
+        android:background="@drawable/input"
+        android:textColorHint="@color/gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.77"/>
+
+    <EditText
+        android:id="@+id/setup_school"
+        android:layout_width="355sp"
+        android:layout_height="wrap_content"
+        android:hint="@string/inputSchool"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:padding="10dp"
+        android:fontFamily="@font/circular_book"
+        android:background="@drawable/input"
+        android:textColorHint="@color/gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.86"/>
 
     <Button
         android:id="@+id/finishSetupButton"
@@ -119,7 +156,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.96"
+        app:layout_constraintVertical_bias="0.97"
         android:text="@string/finishSetup"
         android:textAllCaps="false"
         android:background="@drawable/input"

@@ -16,11 +16,13 @@
     <string name="password">"  Password"</string>
     <string name="confirm_password">"  Confirm Password"</string>
     <string name="create_account">"  Create Account  "</string>
-    <string name="setup">Set Up Account</string>
+    <string name="setup">Set Up Info</string>
     <string name="inputFirstName">"  First Name"</string>
     <string name="inputLastName">"  Last Name"</string>
     <string name="inputUsername">"  Username"</string>
-    <string name="inputCountry">"  Country"</string>
+    <string name="inputGender">"  Gender (type M, F, or N/A)"</string>
+    <string name="inputBirthday">"  Birthday (type as mm/dd/yy)"</string>
+    <string name="inputSchool">"  School"</string>
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
 </resources>

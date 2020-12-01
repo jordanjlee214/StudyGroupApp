@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.71"
+        app:layout_constraintVertical_bias="0.69"
         android:text="@string/sign_in"
         android:textAllCaps="false"
         android:background="@drawable/input"
@@ -106,13 +106,13 @@
         android:text="@string/signUp"
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/nexa_bold"
-        app:layout_constraintTop_toBottomOf="@id/signInButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="23sp"
         android:textAllCaps="false"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_bias="0.8"
         >
     </TextView>
 

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.inappmessaging.internal.ProgramaticContextualTriggers;
 
 import java.util.Set;
@@ -46,6 +47,16 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            sendMain();
+        }
     }
 
     private void createNewAccount() {
@@ -87,5 +98,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void sendMain(){
+        Intent sendToMain = new Intent(RegisterActivity.this, MainActivity.class);
+        sendToMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(sendToMain);
+        finish();
     }
 }

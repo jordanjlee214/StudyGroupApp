@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,6 +57,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            sendMain();
+        }
+    }
+
     private void sendToRegister() {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
@@ -79,10 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                     loadingBar.dismiss();
                     if (task.isSuccessful()){
 
-                        Intent sendToMain = new Intent(LoginActivity.this, MainActivity.class);
-                        sendToMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(sendToMain);
-                        finish();
+                        sendMain();
 
                         Toast.makeText(LoginActivity.this, "You have successfully logged in.", Toast.LENGTH_SHORT).show();
 
@@ -94,5 +102,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void sendMain(){
+        Intent sendToMain = new Intent(LoginActivity.this, MainActivity.class);
+        sendToMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(sendToMain);
+        finish();
     }
 }
