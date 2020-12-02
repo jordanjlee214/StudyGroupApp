@@ -25,4 +25,5 @@
     <string name="inputSchool">"  School"</string>
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
+    <string name="loginMessage">"You have successfully logged in."</string>
 </resources>

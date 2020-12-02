@@ -1,6 +1,7 @@
 package com.leejordan.studygroupapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -15,8 +16,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -32,6 +38,7 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
     private ProgressDialog loadingBar;
+    private DatabaseReference allUsersRef;
 
     private String currentUserID;
 
@@ -52,6 +59,7 @@ public class SetupActivity extends AppCompatActivity {
 
         currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        allUsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         loadingBar = new ProgressDialog(this);
 
         finishSetup.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +71,55 @@ public class SetupActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() == null){
+            sendToLogin();
+        }
+
+        if (mAuth.getCurrentUser().getUid()  == null){
+                sendToLogin();
+        }
+    }
+
     private void setUpAccount() {
-        String u = username.getText().toString();
+        final String u = username.getText().toString();
         String fN = firstName.getText().toString();
         String lN = lastName.getText().toString();
         String g = gender.getText().toString().toUpperCase();
-        if (g.equals("M")){
-            Log.i("gender", "true");
-        }
-        Log.i("gender", g);
         String b = birthday.getText().toString();
         String s = school.getText().toString();
 
+        final boolean[] unique = {true};
+
+        if (u.length() > 0 && allUsersRef.getKey() != null){
+//            Log.i("USERNAME", "RUNS");
+            allUsersRef.orderByChild("username").equalTo(u).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+//                    Log.i("USERNAME", String.valueOf(snapshot));
+                    if(snapshot.exists()){
+                        unique[0] = false;
+                        Log.i("USERNAME", "Unique is: " + unique[0]);
+//                        Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        unique[0] = true;
+                        Log.i("USERNAME", "Unique is: " + unique[0]);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+//        Log.i("USERNAME", "Unique is (default): " + unique[0]);
         //check if all fields are filled out
         if (u.length() == 0 || fN.length() == 0 || lN.length() == 0 || g.length() == 0 || b.length() == 0 || s.length() == 0 ){
             Toast.makeText(this, "Please fill out all fields first.", Toast.LENGTH_SHORT).show();
@@ -95,28 +140,34 @@ public class SetupActivity extends AppCompatActivity {
         else if(Integer.parseInt(b.substring(3, 5)) > 31 || Integer.parseInt(b.substring(3, 5)) <= 0){
             Toast.makeText(this, "You did not enter a valid day for the birthday.", Toast.LENGTH_SHORT).show();
         }
-        //it is correctly input
+//        else if(!unique[0]){
+//            Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
+//            Log.i("USERNAME", "Unique is: " + unique[0]);
+//        }
         else{
             loadingBar.setTitle("Setting up your account data...");
             loadingBar.setMessage("Please wait for a moment as we save your user data...");
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
-            HashMap userData = new HashMap();
-            userData.put("username", u);
-            userData.put("first_name", fN);
-            userData.put("last_name", lN);
-            userData.put("gender", g);
-            userData.put("birthday", b);
-            userData.put("school", s);
-            userData.put("bio", "Hey there! Let's study together!"); //default bio for profiles
-            usersRef.updateChildren(userData).addOnCompleteListener(new OnCompleteListener() {
+            final User newUser = new User(u, fN, lN, b, g, s, "Hey there! Let's study together!", mAuth.getCurrentUser().getUid());
+
+            usersRef.setValue(newUser).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if(task.isSuccessful()){
+//                        Log.i("USERNAME", "ran else");
                         loadingBar.dismiss();
-                        Toast.makeText(SetupActivity.this, "Your account has been successfully set up.", Toast.LENGTH_LONG).show();
-                        sendMain();
+                        if (unique[0] == true) {
+//                            Log.i("USERNAME", "ran true");
+                            Toast.makeText(SetupActivity.this, "Your account has been successfully set up.", Toast.LENGTH_LONG).show();
+                            sendMain();
+                        }
+                        else{
+                            Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
+                              usersRef.removeValue();
+//                            Log.i("USERNAME", "removed");
+                        }
                     }
                     else{
                         loadingBar.dismiss();
@@ -125,7 +176,6 @@ public class SetupActivity extends AppCompatActivity {
                     }
                 }
             });
-
 
         }
 
@@ -150,4 +200,13 @@ public class SetupActivity extends AppCompatActivity {
         startActivity(sendToMain);
         finish();
     }
+
+    private void sendToLogin() {
+        Intent loginIntent = new Intent(SetupActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
+    }
+
+
 }
