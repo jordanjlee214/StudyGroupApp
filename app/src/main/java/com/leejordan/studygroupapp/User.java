@@ -7,6 +7,7 @@ public class User {
     private String username, firstName, lastName, birthday, gender, school;
     private String bio;
     private String userID;
+    private String profilePic;
     private int groups;
     //Profile images
     //Group info
@@ -22,6 +23,7 @@ public class User {
         bio = "";
         userID = "";
         groups = 0;
+        profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
     }
 
     public User(String u, String fN, String lN, String b, String g, String s, String profileBio, String uID){
@@ -34,6 +36,7 @@ public class User {
         bio = profileBio;
         userID = uID;
         groups = 0;
+        profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
     }
 
     public String getUserID() {
@@ -110,16 +113,26 @@ public class User {
         this.username = username;
     }
 
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
     public Map<String, Object> toMap(){
         HashMap userData = new HashMap();
         userData.put("username", username);
-        userData.put("first_name", firstName);
-        userData.put("last_name", lastName);
+        userData.put("firstName", firstName);
+        userData.put("lastName", lastName);
         userData.put("gender", gender);
         userData.put("birthday", birthday);
         userData.put("school", school);
         userData.put("bio", bio);
-        userData.put("groupNum", groups);
+        userData.put("groups", groups);
+        userData.put("userID", userID);
+      //  userData.put("profilePic", profilePic);
         //default bio for profiles
         return userData;
     }

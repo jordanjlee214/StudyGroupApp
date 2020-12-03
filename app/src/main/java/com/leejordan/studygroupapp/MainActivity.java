@@ -71,6 +71,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        DatabaseReference currentRef = usersRef.child(current_user_id);
+        currentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild("firstName")){
+                    sendToSetup();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     private void sendToLogin() {
