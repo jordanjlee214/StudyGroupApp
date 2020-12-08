@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
     private Button logOutTest;
+    private Button chatroomAccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        chatroomAccess = findViewById(R.id.toChatroom);
         logOutTest = findViewById(R.id.logoutTest);
         logOutTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
                 logOut();
             }
         });
+
+        chatroomAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToChatroom();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         currentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChild("firstName")){
+                if(!snapshot.hasChild("username")){
                     sendToSetup();
                 }
             }
@@ -101,6 +111,12 @@ public class MainActivity extends AppCompatActivity {
         setup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setup);
         finish();
+    }
+
+    private void sendToChatroom() {
+        Intent chat = new Intent(MainActivity.this, ChatroomListActivity.class);
+//        chat.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(chat);
     }
 
 

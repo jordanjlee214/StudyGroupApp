@@ -26,4 +26,6 @@
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
     <string name="loginMessage">"You have successfully logged in."</string>
+    <string name="toChatroom">" Chatroom "</string>
+    <string name="noUsers">" No Users Found! "</string>
 </resources>

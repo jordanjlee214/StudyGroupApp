@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,8 +50,11 @@ public class SetupActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private DatabaseReference allUsersRef;
     private StorageReference profileRef;
+    private DatabaseReference usernamesRef;
     private String profileUrl = "";
     private String currentUserID;
+    private HashMap<String, Object> usernameMap;
+    private boolean unique = true;
     final static int GALLERY_PICK = 1;
 
     @Override
@@ -66,9 +72,12 @@ public class SetupActivity extends AppCompatActivity {
         profile = findViewById(R.id.setup_profilePic);
         mAuth = FirebaseAuth.getInstance();
 
+        usernameMap = new HashMap<>();
+
         currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         allUsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        usernamesRef = FirebaseDatabase.getInstance().getReference().child("Usernames");
         loadingBar = new ProgressDialog(this);
 
         FirebaseStorage.getInstance().getReference().child("profile_pics").child("default.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -203,32 +212,53 @@ public class SetupActivity extends AppCompatActivity {
         String b = birthday.getText().toString();
         String s = school.getText().toString();
 
-        final boolean[] unique = {true};
-
-        if (u.length() > 0 && allUsersRef.getKey() != null) {
-//            Log.i("USERNAME", "RUNS");
-            allUsersRef.orderByChild("username").equalTo(u).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-//                    Log.i("USERNAME", String.valueOf(snapshot));
-                    if (snapshot.exists()) {
-                        unique[0] = false;
-                        Log.i("USERNAME", "Unique is: " + unique[0]);
-//                        Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        unique[0] = true;
-                        Log.i("USERNAME", "Unique is: " + unique[0]);
+        ValueEventListener usernameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usernameMap = (HashMap<String, Object>) snapshot.getValue();
+                if (usernameMap != null){
+                    if (usernameMap.containsKey(u)){
+                        unique = false;
                     }
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
+                else{
+                    usernameMap = new HashMap<>();
                 }
-            });
+            }
 
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        usernamesRef.addListenerForSingleValueEvent(usernameListener);
+
+//        final boolean[] unique = {true};
+//
+//        if (u.length() > 0 && allUsersRef.getKey() != null) {
+////            Log.i("USERNAME", "RUNS");
+//            allUsersRef.orderByChild("username").equalTo(u).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+////                    Log.i("USERNAME", String.valueOf(snapshot));
+//                    if (snapshot.exists()) {
+//                        unique[0] = false;
+//                        Log.i("USERNAME", "Unique is: " + unique[0]);
+////                        Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        unique[0] = true;
+//                        Log.i("USERNAME", "Unique is: " + unique[0]);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+//
+//        }
 
 //        Log.i("USERNAME", "Unique is (default): " + unique[0]);
         //check if all fields are filled out
@@ -256,8 +286,10 @@ public class SetupActivity extends AppCompatActivity {
             loadingBar.setMessage("Please wait for a moment as we save your user data...");
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
-            Log.i("PROFILE UPDATED 2", profileUrl);
-            final User newUser = new User(u, fN, lN, b, g, s, "Hey there! Let's study together!", mAuth.getCurrentUser().getUid());
+//            Log.i("PROFILE UPDATED 2", profileUrl);
+
+            String newBirthday = b.substring(0,2) + b.substring(3, 5) + b.substring(6, 8);
+            final User newUser = new User(u, fN, lN, newBirthday, g, s, "Hey there! Let's study together!", mAuth.getCurrentUser().getUid());
 
             usersRef.updateChildren(newUser.toMap()).addOnCompleteListener(new OnCompleteListener() {
                 @Override
@@ -265,13 +297,16 @@ public class SetupActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 //                        Log.i("USERNAME", "ran else");
                         loadingBar.dismiss();
-                        if (unique[0] == true) {
+                        if (unique == true) {
 //                            Log.i("USERNAME", "ran true");
                             Toast.makeText(SetupActivity.this, "Your account has been successfully set up.", Toast.LENGTH_LONG).show();
+                            usernameMap.put(u, true);
+                            usernamesRef.updateChildren(usernameMap);
                             sendMain();
                         } else {
                             Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
-                            usersRef.removeValue();
+                            usersRef.child("username").removeValue();
+                            unique = true;
 //                            Log.i("USERNAME", "removed");
                         }
                     } else {
