@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -104,6 +105,23 @@ public class SetupActivity extends AppCompatActivity {
                 photoIntent.setAction(Intent.ACTION_GET_CONTENT);
                 photoIntent.setType("image/*");
                 startActivityForResult(photoIntent, GALLERY_PICK);
+
+            }
+        });
+
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.hasChild("profilePic")){
+                    String image = snapshot.child("profilePic").getValue().toString();
+
+                    Picasso.get().load(image).placeholder(R.drawable.blank_profile).into(profile);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
