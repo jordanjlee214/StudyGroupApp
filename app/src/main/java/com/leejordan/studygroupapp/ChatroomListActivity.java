@@ -1,15 +1,22 @@
 package com.leejordan.studygroupapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.util.JsonReader;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,8 +42,10 @@ public class ChatroomListActivity extends AppCompatActivity {
     TextView noUsers;
     ProgressDialog loadingBar;
     ArrayList<String> userList = new ArrayList<>();
+    ArrayList<String> userIDList = new ArrayList<>();
     FirebaseAuth mAuth;
     DatabaseReference usersRef;
+    Typeface font;
     String currentUserID;
     Gson gson;
     Type type;
@@ -50,6 +59,8 @@ public class ChatroomListActivity extends AppCompatActivity {
         gson = new GsonBuilder().create();
         type = new TypeToken<User>() {}.getType();
 
+        font = ResourcesCompat.getFont(getBaseContext(), R.font.nexa_light);
+
         users = findViewById(R.id.usersList);
         noUsers = findViewById(R.id.noUsersText);
         mAuth = FirebaseAuth.getInstance();
@@ -59,7 +70,7 @@ public class ChatroomListActivity extends AppCompatActivity {
         loadingBar.setMessage("Loading users...");
         loadingBar.show();
 
-        ValueEventListener userListener = new ValueEventListener() {
+        final ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userSnap : snapshot.getChildren()){
@@ -68,6 +79,16 @@ public class ChatroomListActivity extends AppCompatActivity {
                         for (DataSnapshot userData : userSnap.getChildren()) {
                             if (userData.getKey().equals("username")) {
                                 userList.add(userData.getValue().toString());
+                            }
+                            if (userData.getKey().equals("userID")){
+                                userIDList.add(userData.getValue().toString());
+                            }
+                        }
+                    }
+                    else{
+                        for (DataSnapshot userData : userSnap.getChildren()) {
+                            if (userData.getKey().equals("username")) {
+                                ChatroomCurrentUser.myName = userData.getValue().toString();
                             }
                         }
                     }
@@ -84,7 +105,27 @@ public class ChatroomListActivity extends AppCompatActivity {
                 }
                 else{
                     noUsers.setVisibility(View.GONE);
-                    users.setAdapter(new ArrayAdapter<String>(ChatroomListActivity.this, android.R.layout.simple_list_item_1, userList));
+                    ArrayAdapter<String> list = new ArrayAdapter<String>(ChatroomListActivity.this, android.R.layout.simple_list_item_1, userList){
+                        @NonNull
+                        @Override
+                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                            // Cast the list view each item as text view
+                            TextView item = (TextView) super.getView(position,convertView,parent);
+
+                            // Set the typeface/font for the current item
+                            item.setTypeface(font);
+
+                            // Set the list view item's text color
+                            item.setTextColor(Color.parseColor("#FFFFFF"));
+
+                            // Change the item text size
+                            item.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25);
+
+                            // return the view
+                            return item;
+                        }
+                    };
+                    users.setAdapter(list);
                 }
                 loadingBar.dismiss();
             }
@@ -97,6 +138,15 @@ public class ChatroomListActivity extends AppCompatActivity {
 
         usersRef.addValueEventListener(userListener);
 
+
+        users.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ChatroomCurrentUser.chatWithUsername = userList.get(position);
+                ChatroomCurrentUser.chatWithID = userIDList.get(position);
+                sendToChat();
+            }
+        });
 
     }
 
@@ -117,6 +167,9 @@ public class ChatroomListActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
-
+    private void sendToChat() {
+        Intent chatIntent = new Intent(ChatroomListActivity.this, ChatroomActivity.class);
+        startActivity(chatIntent);
+    }
 
 }

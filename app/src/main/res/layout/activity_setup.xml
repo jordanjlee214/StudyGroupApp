@@ -22,7 +22,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:textSize="55sp"
         android:textAllCaps="false"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.03"
         >
     </TextView>
 
@@ -35,7 +35,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/blank_profile"
         android:id="@+id/setup_profilePic"
-        app:layout_constraintVertical_bias="0.21"
+        app:layout_constraintVertical_bias="0.16"
         >
     </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -48,6 +48,7 @@
         android:singleLine="true"
     android:textSize="16sp"
     android:padding="10dp"
+        android:windowSoftInputMode="stateVisible|adjustPan"
     android:fontFamily="@font/circular_book"
     android:background="@drawable/input"
     android:textColorHint="@color/gray"
@@ -55,7 +56,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintVertical_bias="0.41"/>
+    app:layout_constraintVertical_bias="0.35"/>
 
     <EditText
         android:id="@+id/setup_lastName"
@@ -65,6 +66,7 @@
         android:textColor="@color/black"
         android:singleLine="true"
         android:textSize="16sp"
+        android:windowSoftInputMode="stateVisible|adjustPan"
         android:padding="10dp"
         android:fontFamily="@font/circular_book"
         android:background="@drawable/input"
@@ -73,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.50"/>
+        app:layout_constraintVertical_bias="0.44"/>
 
     <EditText
         android:id="@+id/setup_username"
@@ -83,6 +85,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:padding="10dp"
+        android:windowSoftInputMode="stateVisible|adjustPan"
         android:singleLine="true"
         android:fontFamily="@font/circular_book"
         android:background="@drawable/input"
@@ -91,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.59"/>
+        app:layout_constraintVertical_bias="0.53"/>
 
     <EditText
         android:id="@+id/setup_gender"
@@ -101,6 +104,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:singleLine="true"
+        android:windowSoftInputMode="stateVisible|adjustPan"
         android:padding="10dp"
         android:fontFamily="@font/circular_book"
         android:background="@drawable/input"
@@ -109,7 +113,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.68"/>
+        app:layout_constraintVertical_bias="0.62"/>
 
     <EditText
         android:id="@+id/setup_birthday"
@@ -120,6 +124,7 @@
         android:textSize="16sp"
         android:singleLine="true"
         android:padding="10dp"
+        android:windowSoftInputMode="stateVisible|adjustPan"
         android:fontFamily="@font/circular_book"
         android:inputType="date"
         android:background="@drawable/input"
@@ -128,7 +133,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.77"/>
+        app:layout_constraintVertical_bias="0.71"/>
 
     <EditText
         android:id="@+id/setup_school"
@@ -138,6 +143,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:singleLine="true"
+        android:windowSoftInputMode="stateVisible|adjustPan"
         android:padding="10dp"
         android:fontFamily="@font/circular_book"
         android:background="@drawable/input"
@@ -146,7 +152,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.86"/>
+        app:layout_constraintVertical_bias="0.80"/>
 
     <Button
         android:id="@+id/finishSetupButton"
@@ -168,6 +174,24 @@
 
     </Button>
 
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.885"
+        android:text="@string/clearSetup"
+        android:textAllCaps="false"
+        android:padding="10sp"
+        android:textSize="18sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/red">
+
+    </Button>
 
 
 

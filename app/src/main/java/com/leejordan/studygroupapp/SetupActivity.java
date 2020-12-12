@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.renderscript.Sampler;
@@ -45,6 +47,7 @@ public class SetupActivity extends AppCompatActivity {
 
     private EditText firstName, lastName, username, gender, birthday, school;
     private Button finishSetup;
+    private Button clearAllFields;
     private CircleImageView profile;
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
@@ -55,6 +58,8 @@ public class SetupActivity extends AppCompatActivity {
     private String profileUrl = "";
     private String currentUserID;
     private HashMap<String, Object> usernameMap;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor edit;
     private boolean unique = true;
     final static int GALLERY_PICK = 1;
 
@@ -63,6 +68,7 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
+        clearAllFields = findViewById(R.id.clearButton);
         firstName = findViewById(R.id.setup_firstName);
         lastName = findViewById(R.id.setup_lastName);
         username = findViewById(R.id.setup_username);
@@ -72,6 +78,9 @@ public class SetupActivity extends AppCompatActivity {
         finishSetup = findViewById(R.id.finishSetupButton);
         profile = findViewById(R.id.setup_profilePic);
         mAuth = FirebaseAuth.getInstance();
+
+        sharedPreferences = getSharedPreferences("Setup Fields", Context.MODE_PRIVATE);
+        edit = sharedPreferences.edit();
 
         usernameMap = new HashMap<>();
 
@@ -91,10 +100,38 @@ public class SetupActivity extends AppCompatActivity {
         profileRef = FirebaseStorage.getInstance().getReference().child("profile_pics");
 
 
+        //Restoring Fields
+        firstName.setText(sharedPreferences.getString("firstName", ""));
+        lastName.setText(sharedPreferences.getString("lastName", ""));
+        username.setText(sharedPreferences.getString("username", ""));
+        gender.setText(sharedPreferences.getString("gender", ""));
+        birthday.setText(sharedPreferences.getString("birthday", ""));
+        school.setText(sharedPreferences.getString("school", ""));
+
         finishSetup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setUpAccount();
+            }
+        });
+
+        clearAllFields.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstName.setText("");
+                lastName.setText("");
+                username.setText("");
+                gender.setText("");
+                birthday.setText("");
+                school.setText("");
+                edit.putString("firstName", "");
+                edit.putString("lastName", "");
+                edit.putString("username", "");
+                edit.putString("gender", "");
+                edit.putString("birthday", "");
+                edit.putString("school", "");
+                edit.apply();
+
             }
         });
 
@@ -229,6 +266,14 @@ public class SetupActivity extends AppCompatActivity {
         String g = gender.getText().toString().toUpperCase();
         String b = birthday.getText().toString();
         String s = school.getText().toString();
+
+        edit.putString("firstName", fN);
+        edit.putString("lastName", lN);
+        edit.putString("username", u);
+        edit.putString("gender", g);
+        edit.putString("birthday", b);
+        edit.putString("school", s);
+        edit.apply();
 
         ValueEventListener usernameListener = new ValueEventListener() {
             @Override

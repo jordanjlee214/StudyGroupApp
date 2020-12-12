@@ -28,4 +28,8 @@
     <string name="loginMessage">"You have successfully logged in."</string>
     <string name="toChatroom">" Chatroom "</string>
     <string name="noUsers">" No Users Found! "</string>
+    <string name="userList">"USERS"</string>
+    <string name="chatRoomDefault">"Username"</string>
+    <string name="clearSetup">"Clear Fields"</string>
+    <string name="clearChatroomMessages">"CLEAR \nMESSAGES"</string>
 </resources>
