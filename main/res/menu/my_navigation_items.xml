@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/stoner" />
+    <item android:id="@+id/action_groups"
+        android:title="Groups"
+        android:icon="@drawable/stoner" />
+    <item android:id="@+id/action_notifications"
+        android:title="Notifications"
+        android:icon="@drawable/gaborbrazil" />
+</menu>
