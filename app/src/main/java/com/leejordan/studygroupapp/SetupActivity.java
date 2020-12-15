@@ -333,7 +333,7 @@ public class SetupActivity extends AppCompatActivity {
         //check if birthday is input correctly
         else if (b.length() != 8) {
             Toast.makeText(this, "Please input birthday correctly as mm/dd/yy.", Toast.LENGTH_SHORT).show();
-        } else if (b.charAt(2) != '/' || b.charAt(5) != '/' || !isNumeric(b.substring(0, 2)) || !isNumeric(b.substring(3, 5)) || !isNumeric(b.substring(6, 8))) {
+        } else if (((b.charAt(2) != '/' || b.charAt(5) != '/') &&  ( b.charAt(2) != '.' ||  b.charAt(2) != '.')) ||  !isNumeric(b.substring(0, 2)) || !isNumeric(b.substring(3, 5)) || !isNumeric(b.substring(6, 8))) {
             Toast.makeText(this, "Please input birthday correctly as mm/dd/yy.", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(b.substring(0, 2)) > 12 || Integer.parseInt(b.substring(0, 2)) <= 0) {
             Toast.makeText(this, "You did not enter a valid month for the birthday.", Toast.LENGTH_SHORT).show();

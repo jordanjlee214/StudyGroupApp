@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBackground"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:layout_width="400sp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/settingsTab"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor">
+    </TextView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationSettings"
+        android:layout_width="match_parent"
+        android:theme="@style/Widget.BottomNavigationView"
+        android:layout_height="56sp"
+        android:layout_gravity="start"
+        app:menu="@menu/my_navigation_items"
+        app:itemBackground="@drawable/nav_bar"
+        app:itemIconTint="@drawable/nav_icons"
+        app:itemTextColor="@drawable/nav_icons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintVertical_bias="0.85"
         android:text="@string/testLogout"
         android:textAllCaps="false"
         android:background="@drawable/input"
@@ -29,29 +29,30 @@
         >
     </Button>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toChatroom"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"
-        android:text="@string/toChatroom"
-        android:textAllCaps="false"
-        android:background="@drawable/input"
-        android:padding="10sp"
-        android:textSize="23sp"
-        android:textColor="@color/mainTextColor"
-        android:fontFamily="@font/nexa_bold"
-        android:backgroundTint="@color/colorPrimaryDark"
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/toChatroom"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.85"-->
+<!--        android:text="@string/toChatroom"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:background="@drawable/input"-->
+<!--        android:padding="10sp"-->
+<!--        android:textSize="23sp"-->
+<!--        android:textColor="@color/mainTextColor"-->
+<!--        android:fontFamily="@font/nexa_bold"-->
+<!--        android:backgroundTint="@color/colorPrimaryDark"-->
 
-        >
-    </Button>
+<!--        >-->
+<!--    </Button>-->
 
     <TextView
         android:layout_width="400sp"
+        android:id="@+id/successful"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,9 +63,24 @@
         android:textSize="30sp"
         android:textAlignment="center"
         android:textColor="@color/mainTextColor">
-
-
     </TextView>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:theme="@style/Widget.BottomNavigationView"
+        android:layout_height="56sp"
+        android:layout_gravity="start"
+        app:menu="@menu/my_navigation_items"
+        app:itemBackground="@drawable/nav_bar"
+        app:itemIconTint="@drawable/nav_icons"
+        app:itemTextColor="@drawable/nav_icons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 

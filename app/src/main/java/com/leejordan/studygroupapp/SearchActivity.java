@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,24 +17,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
-    private Button logOutTest;
     private BottomNavigationView navigationBar;
-    private TextView message;
 
-//    private Button chatroomAccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
-        message = findViewById(R.id.successful);
+        mAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        navigationBar = findViewById(R.id.navigation);
-        navigationBar.setSelectedItemId(R.id.action_groups);
+        navigationBar = findViewById(R.id.navigationSearch);
+
+        navigationBar.setSelectedItemId(R.id.action_search);
         navigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -45,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
                 switch(id){
                     case R.id.action_groups:
+                        sendToGroups();
                         return true;
                     case R.id.action_search:
-                        sendToSearch();
                         return true;
                     case R.id.action_calendar:
                         sendToCalendar();
@@ -63,30 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-//        chatroomAccess = findViewById(R.id.toChatroom);
-        logOutTest = findViewById(R.id.logoutTest);
-        logOutTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
-
-//        chatroomAccess.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendToChatroom();
-//            }
-//        });
-
-        mAuth = FirebaseAuth.getInstance();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
     }
-
-
 
     @Override
     protected void onStart() {
@@ -108,10 +81,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!snapshot.hasChild(current_user_id)){ //user doesn't have data in the realtime database
-                    Log.i("ACCT", "Works");
                     sendToSetup();
                 }
-                Log.i("ACCT", "has child");
             }
 
             @Override
@@ -139,57 +110,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendToLogin() {
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(SearchActivity.this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
     }
 
     private void sendToSetup() {
-        Intent setup = new Intent(MainActivity.this, SetupActivity.class);
+        Intent setup = new Intent(SearchActivity.this, SetupActivity.class);
         setup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setup);
         finish();
     }
 
-    private void sendToChatroom() {
-        Intent chat = new Intent(MainActivity.this, ChatroomListActivity.class);
-//        chat.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(chat);
-    }
-
-    private void sendToSearch(){
-        Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
-        startActivity(searchIntent);
+    private void sendToGroups(){
+        Intent groupsIntent = new Intent(SearchActivity.this, MainActivity.class);
+        startActivity(groupsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
     }
 
     private void sendToCalendar(){
-        Intent calendarIntent = new Intent(MainActivity.this, CalendarActivity.class);
+        Intent calendarIntent = new Intent(SearchActivity.this, CalendarActivity.class);
         startActivity(calendarIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void sendToProfile(){
-        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent profileIntent = new Intent(SearchActivity.this, ProfileActivity.class);
         startActivity(profileIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void sendToSettings(){
-        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        Intent settingsIntent = new Intent(SearchActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-
-    public void logOut(){
-        mAuth.signOut();
-        sendToLogin();
-    }
-
-    public void logOut(MenuItem item) {
-        logOut();
-    }
 }

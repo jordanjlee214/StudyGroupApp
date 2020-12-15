@@ -5,11 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,31 +16,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
-    private Button logOutTest;
     private BottomNavigationView navigationBar;
-    private TextView message;
 
-//    private Button chatroomAccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
 
-        message = findViewById(R.id.successful);
+        mAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        navigationBar = findViewById(R.id.navigation);
-        navigationBar.setSelectedItemId(R.id.action_groups);
+        navigationBar = findViewById(R.id.navigationProfile);
+        navigationBar.setSelectedItemId(R.id.action_profile);
         navigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                switch(id){
+                switch (id) {
                     case R.id.action_groups:
+                        sendToGroups();
                         return true;
                     case R.id.action_search:
                         sendToSearch();
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                         sendToCalendar();
                         return true;
                     case R.id.action_profile:
-                        sendToProfile();
                         return true;
                     case R.id.action_settings:
                         sendToSettings();
@@ -63,30 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-//        chatroomAccess = findViewById(R.id.toChatroom);
-        logOutTest = findViewById(R.id.logoutTest);
-        logOutTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
-
-//        chatroomAccess.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sendToChatroom();
-//            }
-//        });
-
-        mAuth = FirebaseAuth.getInstance();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
     }
-
-
 
     @Override
     protected void onStart() {
@@ -96,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
         {
             sendToLogin();
-        }
-        else{
+        } else {
             checkUserExistence();
         }
     }
@@ -107,11 +77,9 @@ public class MainActivity extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChild(current_user_id)){ //user doesn't have data in the realtime database
-                    Log.i("ACCT", "Works");
+                if (!snapshot.hasChild(current_user_id)) { //user doesn't have data in the realtime database
                     sendToSetup();
                 }
-                Log.i("ACCT", "has child");
             }
 
             @Override
@@ -124,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         currentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChild("username")){
+                if (!snapshot.hasChild("username")) {
                     sendToSetup();
                 }
             }
@@ -139,57 +107,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendToLogin() {
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
     }
 
     private void sendToSetup() {
-        Intent setup = new Intent(MainActivity.this, SetupActivity.class);
+        Intent setup = new Intent(ProfileActivity.this, SetupActivity.class);
         setup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setup);
         finish();
     }
 
-    private void sendToChatroom() {
-        Intent chat = new Intent(MainActivity.this, ChatroomListActivity.class);
-//        chat.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(chat);
-    }
-
-    private void sendToSearch(){
-        Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
-        startActivity(searchIntent);
+    private void sendToGroups() {
+        Intent groupsIntent = new Intent(ProfileActivity.this, MainActivity.class);
+        startActivity(groupsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
     }
 
-    private void sendToCalendar(){
-        Intent calendarIntent = new Intent(MainActivity.this, CalendarActivity.class);
+    private void sendToCalendar() {
+        Intent calendarIntent = new Intent(ProfileActivity.this, CalendarActivity.class);
         startActivity(calendarIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    private void sendToProfile(){
-        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-        startActivity(profileIntent);
+    private void sendToSearch() {
+        Intent searchIntent = new Intent(ProfileActivity.this, SearchActivity.class);
+        startActivity(searchIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    private void sendToSettings(){
-        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+    private void sendToSettings() {
+        Intent settingsIntent = new Intent(ProfileActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-
-    public void logOut(){
-        mAuth.signOut();
-        sendToLogin();
-    }
-
-    public void logOut(MenuItem item) {
-        logOut();
-    }
 }
+
+

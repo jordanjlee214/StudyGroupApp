@@ -21,7 +21,7 @@
     <string name="inputLastName">"  Last Name"</string>
     <string name="inputUsername">"  Username"</string>
     <string name="inputGender">"  Gender (type M, F, or N/A)"</string>
-    <string name="inputBirthday">"  Birthday (type as mm/dd/yy)"</string>
+    <string name="inputBirthday">"  Birthday (type as mm/dd/yy or mm.dd.yy)"</string>
     <string name="inputSchool">"  School"</string>
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
@@ -32,4 +32,10 @@
     <string name="chatRoomDefault">"Username"</string>
     <string name="clearSetup">"Clear Fields"</string>
     <string name="clearChatroomMessages">"CLEAR \nMESSAGES"</string>
+    <string name="searchtab">SEARCH</string>
+    <string name="groupstab">GROUPS</string>
+    <string name="calendarTab">CALENDAR</string>
+    <string name="profileTab">PROFILE</string>
+    <string name="settingsTab">SETTINGS</string>
+    <string name="logoutTab">LOGOUT</string>
 </resources>

@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -142,7 +143,7 @@ public class ChatroomActivity extends AppCompatActivity {
                     addMessageBox("You:\n" + message, 1, 4);
                 }
                 else{
-                    addMessageBox(otherUserName + ":\n" + message, 2, otherUserName.length() + 1);
+                    addMessageBox(userName + ":\n" + message, 2, userName.length() + 1);
                 }
             }
 
