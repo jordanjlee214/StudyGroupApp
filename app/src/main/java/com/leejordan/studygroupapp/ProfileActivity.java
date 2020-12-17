@@ -62,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        navigationBar.setSelectedItemId(R.id.action_profile);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -70,6 +71,18 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             checkUserExistence();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        navigationBar.setSelectedItemId(R.id.action_profile);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationBar.setSelectedItemId(R.id.action_profile);
     }
 
     private void checkUserExistence() {

@@ -9,6 +9,7 @@ public class User {
     private String userID;
     private String profilePic;
     private int groups;
+    private HashMap<String, Object> groupList;
     //Profile images
     //Group info
     //Classes, etc.
@@ -24,6 +25,7 @@ public class User {
         userID = "";
         groups = 0;
         profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
+        groupList = new HashMap<>();
     }
 
     public User(String u, String fN, String lN, String b, String g, String s, String profileBio, String uID){
@@ -37,6 +39,7 @@ public class User {
         userID = uID;
         groups = 0;
         profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
+        groupList = new HashMap<>();
     }
 
     public String getUserID() {
@@ -74,6 +77,14 @@ public class User {
 
     public int getGroups() {
         return groups;
+    }
+
+    public HashMap<String, Object> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(HashMap<String, Object> groupList) {
+        this.groupList = groupList;
     }
 
     public void setBio(String bio) {
@@ -132,6 +143,7 @@ public class User {
         userData.put("bio", bio);
         userData.put("groups", groups);
         userData.put("userID", userID);
+        userData.put("groupList", groupList);
       //  userData.put("profilePic", profilePic);
         //default bio for profiles
         return userData;

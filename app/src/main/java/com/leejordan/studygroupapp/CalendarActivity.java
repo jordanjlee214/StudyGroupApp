@@ -62,6 +62,7 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        navigationBar.setSelectedItemId(R.id.action_calendar);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -71,6 +72,18 @@ public class CalendarActivity extends AppCompatActivity {
         else{
             checkUserExistence();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        navigationBar.setSelectedItemId(R.id.action_calendar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationBar.setSelectedItemId(R.id.action_calendar);
     }
 
     private void checkUserExistence() {

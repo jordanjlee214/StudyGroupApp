@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        navigationBar.setSelectedItemId(R.id.action_groups);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -136,6 +137,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        navigationBar.setSelectedItemId(R.id.action_groups);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationBar.setSelectedItemId(R.id.action_groups);
     }
 
     private void sendToLogin() {

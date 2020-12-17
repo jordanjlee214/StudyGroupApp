@@ -62,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        navigationBar.setSelectedItemId(R.id.action_settings);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -71,6 +72,18 @@ public class SettingsActivity extends AppCompatActivity {
         else{
             checkUserExistence();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        navigationBar.setSelectedItemId(R.id.action_settings);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationBar.setSelectedItemId(R.id.action_settings);
     }
 
     private void checkUserExistence() {

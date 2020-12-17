@@ -64,6 +64,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        navigationBar.setSelectedItemId(R.id.action_search);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -73,6 +74,18 @@ public class SearchActivity extends AppCompatActivity {
         else{
             checkUserExistence();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        navigationBar.setSelectedItemId(R.id.action_search);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationBar.setSelectedItemId(R.id.action_search);
     }
 
     private void checkUserExistence() {
