@@ -9,7 +9,9 @@ public class User {
     private String userID;
     private String profilePic;
     private int groups;
-    private HashMap<String, Object> groupList;
+    private HashMap<String, String> groupList;
+    private HashMap<String, String> requestedGroupList;
+    private HashMap<String, String> invitingGroupList;
     //Profile images
     //Group info
     //Classes, etc.
@@ -26,6 +28,8 @@ public class User {
         groups = 0;
         profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
         groupList = new HashMap<>();
+        requestedGroupList = new HashMap<>();
+        invitingGroupList = new HashMap<>();
     }
 
     public User(String u, String fN, String lN, String b, String g, String s, String profileBio, String uID){
@@ -40,6 +44,8 @@ public class User {
         groups = 0;
         profilePic = "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=d3d60c39-f634-47d0-9084-b5b1a4163ea5";
         groupList = new HashMap<>();
+        requestedGroupList = new HashMap<>();
+        invitingGroupList = new HashMap<>();
     }
 
     public String getUserID() {
@@ -74,16 +80,23 @@ public class User {
         return school;
     }
 
+    public HashMap<String, String> getInvitingGroupList() {
+        return invitingGroupList;
+    }
+
+    public HashMap<String, String> getRequestedGroupList() {
+        return requestedGroupList;
+    }
 
     public int getGroups() {
         return groups;
     }
 
-    public HashMap<String, Object> getGroupList() {
+    public HashMap<String, String> getGroupList() {
         return groupList;
     }
 
-    public void setGroupList(HashMap<String, Object> groupList) {
+    public void setGroupList(HashMap<String, String> groupList) {
         this.groupList = groupList;
     }
 
@@ -132,6 +145,14 @@ public class User {
         this.profilePic = profilePic;
     }
 
+    public void setInvitingGroupList(HashMap<String, String> invitingGroupList) {
+        this.invitingGroupList = invitingGroupList;
+    }
+
+    public void setRequestedGroupList(HashMap<String, String> requestedGroupList) {
+        this.requestedGroupList = requestedGroupList;
+    }
+
     public Map<String, Object> toMap(){
         HashMap userData = new HashMap();
         userData.put("username", username);
@@ -144,6 +165,8 @@ public class User {
         userData.put("groups", groups);
         userData.put("userID", userID);
         userData.put("groupList", groupList);
+        userData.put("requestedGroupList", requestedGroupList);
+        userData.put("invitingGroupList", invitingGroupList);
       //  userData.put("profilePic", profilePic);
         //default bio for profiles
         return userData;
