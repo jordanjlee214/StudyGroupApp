@@ -38,4 +38,7 @@
     <string name="profileTab">PROFILE</string>
     <string name="settingsTab">SETTINGS</string>
     <string name="logoutTab">LOGOUT</string>
+    <string name="settings_bio">"  Bio"</string>
+    <string name="settings_user_info">"Profile Info"</string>
+    <string name="settings_update_user_info">" Update Profile Info "</string>
 </resources>

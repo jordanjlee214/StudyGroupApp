@@ -64,7 +64,9 @@ public class ChatroomListActivity extends AppCompatActivity {
         users = findViewById(R.id.usersList);
         noUsers = findViewById(R.id.noUsersText);
         mAuth = FirebaseAuth.getInstance();
+
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
         currentUserID = mAuth.getCurrentUser().getUid();
         loadingBar = new ProgressDialog(ChatroomListActivity.this);
         loadingBar.setMessage("Loading users...");
