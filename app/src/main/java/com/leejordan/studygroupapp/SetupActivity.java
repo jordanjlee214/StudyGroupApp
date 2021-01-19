@@ -179,8 +179,8 @@ public class SetupActivity extends AppCompatActivity {
 
                 loadingBar.setTitle("Setting up profile image...");
                 loadingBar.setMessage("Please wait for a moment as we upload your profile image...");
-                loadingBar.show();
                 loadingBar.setCanceledOnTouchOutside(true);
+                loadingBar.show();
 
                 Uri resultUri = result.getUri();
                 StorageReference filePath = profileRef.child(currentUserID + ".jpg");
@@ -348,8 +348,8 @@ public class SetupActivity extends AppCompatActivity {
         else {
             loadingBar.setTitle("Setting up your account data...");
             loadingBar.setMessage("Please wait for a moment as we save your user data...");
-            loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
 //            Log.i("PROFILE UPDATED 2", profileUrl);
 
             String newBirthday = b.substring(0,2) + b.substring(3, 5) + b.substring(6, 8);
