@@ -20,10 +20,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
+    private DatabaseReference createInitialSchoolRef; //this will be used to establish initial values for the School database
     private Button logOutTest;
     private BottomNavigationView navigationBar;
     private TextView message;
@@ -83,6 +86,21 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        //Establishes intial values for the database
+        createInitialSchoolRef = FirebaseDatabase.getInstance().getReference().child("Schools");
+//        String id_one = RandomIDGenerator.generate();
+//        School school_one = new School("Thomas Jefferson High School for Science and Technology", "Alexandria", "VA", id_one);
+//        String id_two = RandomIDGenerator.generate();
+//        School school_two = new School("South Lakes High School", "Reston", "VA", id_two);
+//        String id_three = RandomIDGenerator.generate();
+//        School school_three = new School("Oakton High School", "Vienna", "VA", id_three);
+//        String id_four = RandomIDGenerator.generate();
+//        School school_four = new School("Chantilly High School", "Chantilly", "VA", id_four);
+//        createInitialSchoolRef.child(id_one).updateChildren(school_one.toMap());
+//        createInitialSchoolRef.child(id_two).updateChildren(school_two.toMap());
+//        createInitialSchoolRef.child(id_three).updateChildren(school_three.toMap());
+//        createInitialSchoolRef.child(id_four).updateChildren(school_four.toMap());
 
     }
 
@@ -205,4 +223,7 @@ public class MainActivity extends AppCompatActivity {
     public void logOut(MenuItem item) {
         logOut();
     }
+
+
+
 }

@@ -21,6 +21,7 @@ public class StudyGroup {
     private String teacher; //this doesn't need to be filled out, if user chooses not to fill it out, default is NONE
     private String periodNumber; //also may not be filled out
     private boolean isFilled;
+    private String groupCreator;
 
     private com.leejordan.studygroupapp.Message[] messages;
 
@@ -28,7 +29,7 @@ public class StudyGroup {
     }
 
     //this constructor will be used when a group is first created and they aren't putting teacher or period number
-    public StudyGroup(String groupID, String groupName, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users){
+    public StudyGroup(String groupID, String groupName, String groupCreator, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users){
         this.groupID = groupID;
         this.groupName = groupName;
         this.description = description;
@@ -41,7 +42,7 @@ public class StudyGroup {
         this.subject = subject;
         this.classType = classType;
         this.users = users;
-
+        this.groupCreator = groupCreator;
 
         requestedUsers = new HashMap<>();
         invitedUsers = new HashMap<>();
@@ -53,7 +54,7 @@ public class StudyGroup {
     }
 
     //this constructor will be used when a group is first created and they put teacher, but no period number
-    public StudyGroup(String groupID, String groupName, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher){
+    public StudyGroup(String groupID, String groupName, String groupCreator, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher){
         this.groupID = groupID;
         this.groupName = groupName;
         this.description = description;
@@ -67,6 +68,7 @@ public class StudyGroup {
         this.classType = classType;
         this.users = users;
         this.teacher = teacher;
+this.groupCreator = groupCreator;
 
         requestedUsers = new HashMap<>();
         invitedUsers = new HashMap<>();
@@ -77,7 +79,7 @@ public class StudyGroup {
     }
 
     //this constructor will be used when a group is first created and they put both teacher and period number
-    public StudyGroup(String groupID, String groupName, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher, String periodNumber){
+    public StudyGroup(String groupID, String groupName, String groupCreator, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher, String periodNumber){
         this.groupID = groupID;
         this.groupName = groupName;
         this.description = description;
@@ -92,6 +94,7 @@ public class StudyGroup {
         this.users = users;
         this.teacher = teacher;
         this.periodNumber = periodNumber;
+        this.groupCreator = groupCreator;
 
         requestedUsers = new HashMap<>();
         invitedUsers = new HashMap<>();
@@ -101,7 +104,7 @@ public class StudyGroup {
     }
 
     //this constructor lets you fill in all fields
-    public StudyGroup(String groupID, String groupName, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher, String periodNumber, HashMap<String, String> requestedUsers, HashMap<String, String> invitedUsers){
+    public StudyGroup(String groupID, String groupName, String groupCreator, String description, int members, int memberLimit, boolean isPublic, String schoolName, String schoolCity, String schoolState, String subject, String classType, HashMap<String, String> users, String teacher, String periodNumber, HashMap<String, String> requestedUsers, HashMap<String, String> invitedUsers){
         this.groupID = groupID;
         this.groupName = groupName;
         this.description = description;
@@ -118,6 +121,7 @@ public class StudyGroup {
         this.requestedUsers = requestedUsers;
         this.invitedUsers = invitedUsers;
         this.periodNumber = periodNumber;
+        this.groupCreator = groupCreator;
         if (members < memberLimit){
             isFilled = false;
         }
@@ -282,9 +286,18 @@ public class StudyGroup {
         groupData.put("requestedUsers", requestedUsers);
         groupData.put("invitedUsers", invitedUsers);
         groupData.put("groupID", groupID);
+        groupData.put("groupCreator", groupCreator);
 
         //  userData.put("profilePic", profilePic);
         //default bio for profiles
         return groupData;
+    }
+
+    public String getGroupCreator() {
+        return groupCreator;
+    }
+
+    public void setGroupCreator(String groupCreator) {
+        this.groupCreator = groupCreator;
     }
 }
