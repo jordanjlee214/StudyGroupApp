@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,9 +26,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
-    private DatabaseReference currentUserRef;
+    private DatabaseReference groupsOfUserRef;
     private DatabaseReference groupsRef;
+    private HashMap<Integer, String> listPositionToGroupID;
     private RecyclerView groupsList;
     private DatabaseReference createInitialSchoolRef; //this will be used to establish initial values for the School database
     private Button viewInvites;
@@ -61,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         header = findViewById(R.id.groups_headerTest);
         noGroups = findViewById(R.id.groups_noGroupsText);
         noGroups.setVisibility(View.GONE);
+
+        listPositionToGroupID = new HashMap<>();
 
         groupsList = (RecyclerView) findViewById(R.id.groups_groupList);
         groupsList.setHasFixedSize(true);
@@ -109,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
+        groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUsers").child(mAuth.getCurrentUser().getUid());
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,11 +182,11 @@ public class MainActivity extends AppCompatActivity {
             checkUserExistence();
         }
 
-        FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsRef.orderByChild("groupName"), GroupListItem.class).build();
+        FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef, GroupListItem.class).build();
 
         FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder> adapter = new FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull GroupListViewHolder holder, int position, @NonNull GroupListItem model) {
+            protected void onBindViewHolder(@NonNull GroupListViewHolder holder, final int position, @NonNull GroupListItem model) {
                 holder.name.setText(model.getGroupName());
                 holder.members.setText("" + model.getMembers());
                 if (model.getClassType().equals("Regular")){
@@ -212,6 +219,16 @@ public class MainActivity extends AppCompatActivity {
                         holder.subject.setText(shorten + " (" + model.getClassType() + ")");
                     }
                 }
+                else if(model.getClassType().equals("Other")){
+                    if (model.getSubject().length() <= 21){
+                        holder.subject.setText(model.getSubject() + " (" + model.getClassType() + ")");
+                    }
+                    else{
+                        String shorten = model.getSubject().substring(0, 18);
+                        shorten += "...";
+                        holder.subject.setText(shorten + " (" + model.getClassType() + ")");
+                    }
+                }
                 if (model.getGroupCreator().length() <= 30){
                     holder.owner.setText(model.getGroupCreator());
                 }
@@ -221,6 +238,16 @@ public class MainActivity extends AppCompatActivity {
                     holder.owner.setText(shorten);
                 }
                 Picasso.get().load(model.getProfilePic()).placeholder(R.drawable.blank_profile).into(holder.profile);
+
+                listPositionToGroupID.put(position, model.getGroupID());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CurrentGroup.currentGroupID = listPositionToGroupID.get(position);
+                        sendToGroup();
+                    }
+                });
             }
 
             @NonNull
@@ -235,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
         };
         groupsList.setAdapter(adapter);
         adapter.startListening();
+
     }
 
     private void checkUserExistence() {
@@ -327,6 +355,12 @@ public class MainActivity extends AppCompatActivity {
     private void sendToSettings(){
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private void sendToGroup(){
+        Intent toGroupIntent = new Intent(MainActivity.this, GroupActivity.class);
+        startActivity(toGroupIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
