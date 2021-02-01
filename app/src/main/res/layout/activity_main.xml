@@ -8,63 +8,88 @@
     android:background="@color/darkBackground"
     android:backgroundTint="@color/darkBackground">
 
+
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logoutTest"
+        android:layout_height="38sp"
+        android:id="@+id/groups_groupInvites"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.85"
-        android:text="@string/testLogout"
+        app:layout_constraintRight_toLeftOf="@id/groups_guideline"
+        app:layout_constraintVertical_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.87"
+        android:text="@string/group_view_invites"
         android:textAllCaps="false"
         android:background="@drawable/input"
         android:padding="10sp"
-        android:textSize="23sp"
+        android:textSize="17sp"
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/nexa_bold"
         android:backgroundTint="@color/colorPrimaryDark"
-
         >
     </Button>
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/toChatroom"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.85"-->
-<!--        android:text="@string/toChatroom"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:background="@drawable/input"-->
-<!--        android:padding="10sp"-->
-<!--        android:textSize="23sp"-->
-<!--        android:textColor="@color/mainTextColor"-->
-<!--        android:fontFamily="@font/nexa_bold"-->
-<!--        android:backgroundTint="@color/colorPrimaryDark"-->
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.46"
+        android:id="@+id/groups_guideline">
 
-<!--        >-->
-<!--    </Button>-->
+    </androidx.constraintlayout.widget.Guideline>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="38sp"
+        android:id="@+id/groups_groupRequests"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/groups_guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.17"
+        android:text="@string/group_view_requests"
+        android:textAllCaps="false"
+        android:background="@drawable/input"
+        android:padding="10sp"
+        android:textSize="17sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/colorPrimaryDark"
+        >
+    </Button>
 
     <TextView
         android:layout_width="400sp"
-        android:id="@+id/successful"
+        android:id="@+id/groups_headerTest"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/loginMessage"
+        android:text="@string/groups_tab_header"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="45sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.04">
+    </TextView>
+
+    <TextView
+        android:id="@+id/groups_noGroupsText"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/groups_border"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/group_noGroups"
         android:fontFamily="@font/nexa_bold"
         android:textSize="30sp"
         android:textAlignment="center"
         android:textColor="@color/mainTextColor">
     </TextView>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
@@ -81,7 +106,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:id="@+id/groups_border"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.22">
 
+    </View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groups_groupList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintTop_toBottomOf="@id/groups_border"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/groups_createGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/create_group_icon"
+        app:rippleColor="@color/darkerGreen"
+        android:contentDescription="@string/group_create_group"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintVertical_bias="0.95"/>
+    
 
 
 

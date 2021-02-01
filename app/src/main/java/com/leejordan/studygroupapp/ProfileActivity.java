@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
     private BottomNavigationView navigationBar;
+    private Button logOutTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        logOutTest = findViewById(R.id.logoutTest);
 
         navigationBar = findViewById(R.id.navigationProfile);
         navigationBar.setSelectedItemId(R.id.action_profile);
@@ -55,6 +59,14 @@ public class ProfileActivity extends AppCompatActivity {
                 }
 
                 return false;
+            }
+        });
+
+        logOutTest = findViewById(R.id.logoutTest);
+        logOutTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
             }
         });
     }
@@ -156,6 +168,13 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(settingsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+
+
+    public void logOut(){
+        mAuth.signOut();
+        sendToLogin();
+    }
+
 
 }
 
