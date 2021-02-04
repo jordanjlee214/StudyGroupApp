@@ -132,7 +132,12 @@ public class GroupCreateFragment extends Fragment {
     }
 }
     //TODO: put below code in the activity that opens this fragment
-    /*public void createGroup(View view) {
+    /*TODO: put these at the top of the activity
+    public static Set<String> valuesset;
+    public static Set<String> values2set;
+    public static Set<String> values3set;
+    TODO: put this as a method inside the activity
+    public void createGroup(View view) {
         //create group from inputs in groupcreatefragment
         TextView name = findViewById(R.id.input_groupname);
         TextView desc = findViewById(R.id.input_groupdescription);
