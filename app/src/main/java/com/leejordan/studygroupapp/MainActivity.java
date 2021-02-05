@@ -2,6 +2,7 @@ package com.leejordan.studygroupapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference groupsRef;
     private HashMap<Integer, String> listPositionToGroupID;
     private RecyclerView groupsList;
+    private FragmentManager fragmentManager;
+    private GroupCreateFragment createFragment;
     private DatabaseReference createInitialSchoolRef; //this will be used to establish initial values for the School database
     private Button viewInvites;
     private Button viewRequests;
@@ -59,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentManager = getSupportFragmentManager();
+
+        if (findViewById(R.id.fragmentContainer) != null){
+            if (savedInstanceState != null){
+                return;
+            }
+            createFragment = new GroupCreateFragment();
+        }
+
+
         viewInvites = findViewById(R.id.groups_groupInvites);
         viewRequests = findViewById(R.id.groups_groupRequests);
         createGroup = findViewById(R.id.groups_createGroup);
@@ -71,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
         groupsList = (RecyclerView) findViewById(R.id.groups_groupList);
         groupsList.setHasFixedSize(true);
         groupsList.setLayoutManager(new LinearLayoutManager(this));
+
+        createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCreateGroup();
+            }
+        });
 
 
         navigationBar = findViewById(R.id.navigation);
@@ -137,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 //      initialGroup();
@@ -237,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     shorten += "...";
                     holder.owner.setText(shorten);
                 }
-                Picasso.get().load(model.getProfilePic()).placeholder(R.drawable.blank_profile).into(holder.profile);
+                Picasso.get().load(model.getProfilePic()).placeholder(R.drawable.blank_group_profile).into(holder.profile);
 
                 listPositionToGroupID.put(position, model.getGroupID());
 
@@ -417,6 +438,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public void startCreateGroup(){
+        Intent createIntent = new Intent(MainActivity.this, GroupCreateActivity.class);
+        startActivity(createIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 

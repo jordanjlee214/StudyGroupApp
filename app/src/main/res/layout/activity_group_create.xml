@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkBackground"
+    android:backgroundTint="@color/darkBackground"
+    tools:context=".GroupCreateActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createGroup_title"
+        android:text="@string/group_create_group"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="50sp"
+        android:textAllCaps="false"
+        app:layout_constraintVertical_bias="0.06">
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:id="@+id/createGroup_border1"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.18">
+
+    </View>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:id="@+id/createGroup_border2"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.83">
+
+    </View>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:isScrollContainer="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createGroup_border1"
+        app:layout_constraintBottom_toTopOf="@id/createGroup_border2"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+          >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/createGroup_profileImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/blank_group_profile"
+                >
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_profileImage"
+                android:id="@+id/createGroup_groupName"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:hint=" Group Name *"
+                android:inputType="text"
+                android:singleLine="true"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:maxLength="45" />
+
+            <EditText
+                android:id="@+id/createGroup_groupDescription"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:hint="Description *"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:maxLength="300"
+                android:layout_below="@id/createGroup_groupName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/createGroup_maxMembers"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:inputType="number"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:completionThreshold="0"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:hint=" Max Members *"
+                android:layout_below="@id/createGroup_groupDescription"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/createGroup_subject"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:completionThreshold="0"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:hint=" Subject *"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_maxMembers"
+                android:layout_marginTop="20dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/createGroup_classType"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:padding="10dp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:completionThreshold="0"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:hint=" Class Type *"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_subject"
+                android:layout_marginTop="20dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/createGroup_school"
+                android:layout_width="335sp"
+                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:inputType="text"
+                android:completionThreshold="0"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:hint=" School *"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_classType"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/createGroup_addSchool"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/createGroup_school"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="18sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="18sp"
+                android:background="@drawable/input"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:fontFamily="@font/circular_bold"
+                android:padding="10sp"
+                android:text=" ADD A SCHOOL "
+                android:textAllCaps="false"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp">
+
+            </Button>
+
+            <Button
+                android:id="@+id/createGroup_public"
+                android:layout_width="165sp"
+                android:layout_height="wrap_content"
+                android:text=" PUBLIC "
+                android:textAllCaps="false"
+                android:background="@drawable/input"
+                android:padding="10sp"
+                android:textSize="20sp"
+                android:textColor="@color/mainTextColor"
+                android:fontFamily="@font/circular_bold"
+                android:layout_marginTop="20sp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="32dp"
+                android:layout_below="@id/createGroup_addSchool"
+                android:backgroundTint="@color/blue">
+
+            </Button>
+
+            <Button
+                android:id="@+id/createGroup_private"
+                android:layout_width="165sp"
+                android:layout_height="wrap_content"
+                android:text=" PRIVATE "
+                android:textAllCaps="false"
+                android:background="@drawable/input"
+                android:padding="10sp"
+                android:textSize="20sp"
+                android:textColor="@color/mainTextColor"
+                android:fontFamily="@font/circular_bold"
+                android:layout_marginTop="20sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="26dp"
+                android:layout_toEndOf="@id/createGroup_public"
+                android:layout_below="@id/createGroup_addSchool"
+                android:backgroundTint="@color/red">
+
+            </Button>
+
+
+            <EditText
+                android:id="@+id/createGroup_teacher"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:hint=" Teacher (optional)"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_public"
+                android:layout_marginTop="20dp" />
+
+            <EditText
+                android:id="@+id/createGroup_periodNumber"
+                android:layout_width="335sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:fontFamily="@font/circular_book"
+                android:hint=" Period (optional)"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createGroup_teacher"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/createGroup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/createGroup_border2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:text=" Create New Group "
+        android:textAllCaps="false"
+        android:background="@drawable/input"
+        android:padding="10sp"
+        android:textSize="28sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
