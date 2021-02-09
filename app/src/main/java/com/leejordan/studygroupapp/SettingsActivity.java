@@ -49,11 +49,15 @@ public class SettingsActivity extends AppCompatActivity {
     private CircleImageView profile;
     private ProgressDialog loadingBar;
     private HashMap<String, Object> usernameMap;
+
     private StorageReference profileRef;
+    private String profileUrl = "";
 
     private String currentID;
     private String oldUsername;
     final static int GALLERY_PICK = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,18 +182,27 @@ public class SettingsActivity extends AppCompatActivity {
     private void checkFields() {
         usernameMap.remove(oldUsername);
         Log.i("USERS2",usernameMap.toString() );
-        final String u = username.getText().toString();
+        final String u = username.getText().toString().trim();
         String fN = firstName.getText().toString();
+        fN = fN.trim();
         String lN = lastName.getText().toString();
+        lN = lN.trim();
         String g = gender.getText().toString().toUpperCase();
+        g = g.trim();
         String bday = birthday.getText().toString();
+        bday = bday.trim();
         String s = school.getText().toString();
+        s = s.trim();
         String b = bio.getText().toString();
+        b = b.trim();
 
         if (u.length() == 0 || fN.length() == 0 || lN.length() == 0 || g.length() == 0 || b.length() == 0 || s.length() == 0 || bday.length() == 0) {
             Toast.makeText(this, "Please fill out all fields first.", Toast.LENGTH_SHORT).show();
         } else if (!g.equals("M") && !g.equals("F") && !g.equals("N/A")) {
             Toast.makeText(this, "Please input gender as M, F, or N/A.", Toast.LENGTH_SHORT).show();
+        }
+        else if (u.contains(" ") || u.contains("/") || u.contains(".") || u.contains("#") || u.contains("$") || u.contains("[") || u.contains("]")){
+            Toast.makeText(this, "These characters are forbidden in a username: '/', '.', '#', '$', '[', ']', and whitespace. ", Toast.LENGTH_LONG).show();
         }
         //check if birthday is input correctly
         else if (bday.length() != 8) {
@@ -213,10 +226,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateFields(String username, String firstName, String lastName, String gender, String birthday, String school, String bio) {
-        loadingBar.setTitle("Updating your account data...");
-        loadingBar.setMessage("Please wait for a moment as we save your user data...");
-        loadingBar.setCanceledOnTouchOutside(true);
-        loadingBar.show();
+
 
         User newUser = new User(username, firstName, lastName, birthday, gender, school, bio, mAuth.getCurrentUser().getUid());
         userRef.updateChildren(newUser.toMap()).addOnCompleteListener(new OnCompleteListener<Void>() {

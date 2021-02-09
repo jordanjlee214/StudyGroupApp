@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
-        groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUsers").child(mAuth.getCurrentUser().getUid());
+        groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUser").child(mAuth.getCurrentUser().getUid());
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        navigationBar.setSelectedItemId(R.id.action_groups);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
@@ -203,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
             checkUserExistence();
         }
 
+        navigationBar.setSelectedItemId(R.id.action_groups);
         FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef, GroupListItem.class).build();
 
         FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder> adapter = new FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder>(options) {
@@ -231,11 +231,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else if(model.getClassType().equals("Honors")){
-                    if (model.getSubject().length() <= 20){
+                    if (model.getSubject().length() <= 23){
                         holder.subject.setText(model.getSubject() + " (" + model.getClassType() + ")");
                     }
                     else{
-                        String shorten = model.getSubject().substring(0, 17);
+                        String shorten = model.getSubject().substring(0, 20);
                         shorten += "...";
                         holder.subject.setText(shorten + " (" + model.getClassType() + ")");
                     }
@@ -444,6 +444,7 @@ public class MainActivity extends AppCompatActivity {
         Intent createIntent = new Intent(MainActivity.this, GroupCreateActivity.class);
         startActivity(createIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
 

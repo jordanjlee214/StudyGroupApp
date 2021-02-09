@@ -261,12 +261,12 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void setUpAccount() {
-        final String u = username.getText().toString();
-        String fN = firstName.getText().toString();
-        String lN = lastName.getText().toString();
-        String g = gender.getText().toString().toUpperCase();
-        String b = birthday.getText().toString();
-        String s = school.getText().toString();
+        final String u = username.getText().toString().trim();
+        String fN = firstName.getText().toString().trim();
+        String lN = lastName.getText().toString().trim();
+        String g = gender.getText().toString().toUpperCase().trim();
+        String b = birthday.getText().toString().trim();
+        String s = school.getText().toString().trim();
 
         edit.putString("firstName", fN);
         edit.putString("lastName", lN);
@@ -330,6 +330,9 @@ public class SetupActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill out all fields first.", Toast.LENGTH_SHORT).show();
         } else if (!g.equals("M") && !g.equals("F") && !g.equals("N/A")) {
             Toast.makeText(this, "Please input gender as M, F, or N/A.", Toast.LENGTH_SHORT).show();
+        }
+        else if (u.contains("_") || u.contains("/") || u.contains(".") || u.contains("#") || u.contains("$") || u.contains("[") || u.contains("]")){
+            Toast.makeText(this, "These characters are forbidden in a username: '/', '.', '#', '$', '[', ']', and whitespace. ", Toast.LENGTH_LONG).show();
         }
         //check if birthday is input correctly
         else if (b.length() != 8) {
