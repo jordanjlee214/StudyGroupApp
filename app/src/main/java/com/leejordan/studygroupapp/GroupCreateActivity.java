@@ -41,8 +41,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,11 +58,11 @@ public class GroupCreateActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> memberAdapter, subjectAdapter, schoolAdapter, classTypeAdapter;
     private ArrayList<String> membersList, subjectsList, classTypeList, schoolList;
+    private HashSet<String> membersSet, subjectsSet, classesSet;
 
     private DatabaseReference schoolRef;
 
     private String publicOrPrivate;
-
     private String[] subjects = {"Biology",
             "Chemistry",
             "Physics",
@@ -110,6 +112,13 @@ public class GroupCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_create);
 
+        //create sets to check if input is in them
+        for(int i = 0; i < 99; i++){
+            membersList.add("" + (i+2) + " Members");
+        }
+        membersSet = new HashSet<String>(membersList);
+        subjectsSet = new HashSet<String>(Arrays.asList(subjects));
+        classesSet = new HashSet<String>(Arrays.asList(classTypes));
         publicOrPrivate = "NONE";
 
         //Initialize all views
@@ -372,7 +381,7 @@ public class GroupCreateActivity extends AppCompatActivity {
     public void createGroup(){
         //TODO: check all the fields and make sure they're correct, do a Toast to explain every error
             //TODO: are all fields filled out and is the public/private button clicked
-                //there is a String called publicOrPriavte, it it equals "NONE" it was never clicked
+                //there is a String called publicOrPriavte, if it equals "NONE" it was never clicked
                 //teacher and period number don't need to be filled out
                 //however, if period number is filled out, then teacher must be filled out
             //TODO: is max Members filled out properly
@@ -395,8 +404,28 @@ public class GroupCreateActivity extends AppCompatActivity {
                 //increase the groups variable by 1
                 //add this group to the user's map of groups
             //TODO: update the GroupsOfUser databsae branch too on Firebase
+        //get all inputs
+        String inpName = "" + name.getText();
+        String inpDesc = "" + description.getText();
+        String inpMembers = "" + members.getText();
+        String inpSubject = "" + subject.getText();
+        String inpClassType = "" + classType.getText();
+        String inpSchool = "" + school.getText();
+        String inpTeacher = "" + teacher.getText();
+        String inpPeriod = "" + period.getText();
 
-
+        //toasts for incomplete information
+        Context c = this.getApplicationContext();
+        if(inpName.length() == 0)
+            Toast.makeText(c,"Group Name Incomplete",Toast.LENGTH_SHORT);
+        else if(inpDesc.length() == 0)
+            Toast.makeText(c,"Group Description Incomplete",Toast.LENGTH_SHORT);
+        else if(!membersSet.contains(inpMembers))
+            Toast.makeText(c,"Select Group Members from List",Toast.LENGTH_SHORT);
+        else if(!subjectsSet.contains(inpSubject))
+            Toast.makeText(c,"Select Subject from List",Toast.LENGTH_SHORT);
+        else if(!classesSet.contains(inpClassType))
+            Toast.makeText(c,"Select Class Type from List",Toast.LENGTH_SHORT);
 
     }
 
