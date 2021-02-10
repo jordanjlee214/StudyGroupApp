@@ -331,7 +331,7 @@ public class SetupActivity extends AppCompatActivity {
         } else if (!g.equals("M") && !g.equals("F") && !g.equals("N/A")) {
             Toast.makeText(this, "Please input gender as M, F, or N/A.", Toast.LENGTH_SHORT).show();
         }
-        else if (u.contains("_") || u.contains("/") || u.contains(".") || u.contains("#") || u.contains("$") || u.contains("[") || u.contains("]")){
+        else if (u.contains(" ") || u.contains("/") || u.contains(".") || u.contains("#") || u.contains("$") || u.contains("[") || u.contains("]")){
             Toast.makeText(this, "These characters are forbidden in a username: '/', '.', '#', '$', '[', ']', and whitespace. ", Toast.LENGTH_LONG).show();
         }
         //check if birthday is input correctly
