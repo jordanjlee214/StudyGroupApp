@@ -133,7 +133,10 @@ public class GroupCreateActivity extends AppCompatActivity {
             "Science",
             "Mobile App Development",
             "Web App Development",
-            "Artificial Intelligence"};
+            "Artificial Intelligence",
+            "Philosophy",
+            "Economics",
+    };
 
     private String [] classTypes = {
             "Regular",
@@ -219,6 +222,7 @@ public class GroupCreateActivity extends AppCompatActivity {
         memberNumSet = new HashSet<Integer>(memberNumList);
         membersSet = new HashSet<String>(membersList);
         subjectsSet = new HashSet<String>(Arrays.asList(subjects));
+        subjectsSet.add("Miscellaneous");
         classesSet = new HashSet<String>(Arrays.asList(classTypes));
         publicOrPrivate = "NONE";
 

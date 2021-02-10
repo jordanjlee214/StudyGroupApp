@@ -153,7 +153,7 @@ public class User {
         this.requestedGroupList = requestedGroupList;
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMapInitialize(){
         HashMap userData = new HashMap();
         userData.put("username", username);
         userData.put("firstName", firstName);
@@ -168,6 +168,21 @@ public class User {
         userData.put("requestedGroupList", requestedGroupList);
         userData.put("invitingGroupList", invitingGroupList);
       //  userData.put("profilePic", profilePic);
+        //default bio for profiles
+        return userData;
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap userData = new HashMap();
+        userData.put("username", username);
+        userData.put("firstName", firstName);
+        userData.put("lastName", lastName);
+        userData.put("gender", gender);
+        userData.put("birthday", birthday);
+        userData.put("school", school);
+        userData.put("bio", bio);
+        userData.put("userID", userID);
+        //  userData.put("profilePic", profilePic);
         //default bio for profiles
         return userData;
     }

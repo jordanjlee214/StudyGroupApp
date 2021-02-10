@@ -358,7 +358,7 @@ public class SetupActivity extends AppCompatActivity {
             String newBirthday = b.substring(0,2) + b.substring(3, 5) + b.substring(6, 8);
             final User newUser = new User(u, fN, lN, newBirthday, g, s, "Hey there! Let's study together!", mAuth.getCurrentUser().getUid());
 
-            usersRef.updateChildren(newUser.toMap()).addOnCompleteListener(new OnCompleteListener() {
+            usersRef.updateChildren(newUser.toMapInitialize()).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {

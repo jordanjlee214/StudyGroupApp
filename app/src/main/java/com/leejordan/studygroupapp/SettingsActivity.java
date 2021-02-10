@@ -228,7 +228,9 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateFields(String username, String firstName, String lastName, String gender, String birthday, String school, String bio) {
 
 
-        User newUser = new User(username, firstName, lastName, birthday, gender, school, bio, mAuth.getCurrentUser().getUid());
+        final User newUser = new User(username, firstName, lastName, birthday, gender, school, bio, mAuth.getCurrentUser().getUid());
+
+
         userRef.updateChildren(newUser.toMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

@@ -135,28 +135,12 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
-        groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUser").child(mAuth.getCurrentUser().getUid());
+        if(mAuth.getCurrentUser() != null){
+            groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUser").child(mAuth.getCurrentUser().getUid());
 
-        usersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String groupNumString = snapshot.child(mAuth.getCurrentUser().getUid()).child("groups").getValue().toString();
-                int groupNum = Integer.parseInt(groupNumString);
-                if( groupNum == 0){
-                    header.setText("GROUPS (" + groupNum + ")");
-                    noGroups.setVisibility(View.VISIBLE);
-                    groupsList.setVisibility(View.GONE);
-                }
-                else{
-                    header.setText("GROUPS (" + groupNum + ")");
-                }
-            }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
 
 
 
@@ -197,63 +181,59 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null) //if user isn't authenticated, we send them to login activity
         {
             sendToLogin();
-        }
-        else{
+        } else {
             checkUserExistence();
         }
 
         navigationBar.setSelectedItemId(R.id.action_groups);
-        FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef, GroupListItem.class).build();
+
+        if(currentUser != null)
+        {
+
+
+            FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef, GroupListItem.class).build();
 
         FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder> adapter = new FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull GroupListViewHolder holder, final int position, @NonNull GroupListItem model) {
                 holder.name.setText(model.getGroupName());
                 holder.members.setText("" + model.getMembers());
-                if (model.getClassType().equals("Regular")){
-                    if (model.getSubject().length() <= 24){
+                if (model.getClassType().equals("Regular")) {
+                    if (model.getSubject().length() <= 24) {
                         holder.subject.setText(model.getSubject());
-                    }
-                    else{
+                    } else {
                         String shorten = model.getSubject().substring(0, 21);
                         shorten += "...";
                         holder.subject.setText(shorten);
                     }
-                }
-                else if(model.getClassType().equals("AP") || (model.getClassType().equals("IB"))){
-                    if (model.getSubject().length() <= 22){
+                } else if (model.getClassType().equals("AP") || (model.getClassType().equals("IB"))) {
+                    if (model.getSubject().length() <= 22) {
                         holder.subject.setText(model.getSubject() + " (" + model.getClassType() + ")");
-                    }
-                    else{
+                    } else {
                         String shorten = model.getSubject().substring(0, 19);
                         shorten += "...";
                         holder.subject.setText(shorten + " (" + model.getClassType() + ")");
                     }
-                }
-                else if(model.getClassType().equals("Honors")){
-                    if (model.getSubject().length() <= 23){
+                } else if (model.getClassType().equals("Honors")) {
+                    if (model.getSubject().length() <= 23) {
                         holder.subject.setText(model.getSubject() + " (" + model.getClassType() + ")");
-                    }
-                    else{
+                    } else {
                         String shorten = model.getSubject().substring(0, 20);
                         shorten += "...";
                         holder.subject.setText(shorten + " (" + model.getClassType() + ")");
                     }
-                }
-                else if(model.getClassType().equals("Other")){
-                    if (model.getSubject().length() <= 21){
+                } else if (model.getClassType().equals("Other")) {
+                    if (model.getSubject().length() <= 21) {
                         holder.subject.setText(model.getSubject() + " (" + model.getClassType() + ")");
-                    }
-                    else{
+                    } else {
                         String shorten = model.getSubject().substring(0, 18);
                         shorten += "...";
                         holder.subject.setText(shorten + " (" + model.getClassType() + ")");
                     }
                 }
-                if (model.getGroupCreator().length() <= 30){
+                if (model.getGroupCreator().length() <= 30) {
                     holder.owner.setText(model.getGroupCreator());
-                }
-                else{
+                } else {
                     String shorten = model.getGroupCreator().substring(0, 27);
                     shorten += "...";
                     holder.owner.setText(shorten);
@@ -284,6 +264,9 @@ public class MainActivity extends AppCompatActivity {
         groupsList.setAdapter(adapter);
         adapter.startListening();
 
+
+    }
+
     }
 
     private void checkUserExistence() {
@@ -292,10 +275,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!snapshot.hasChild(current_user_id)){ //user doesn't have data in the realtime database
-                    Log.i("ACCT", "Works");
                     sendToSetup();
                 }
-                Log.i("ACCT", "has child");
             }
 
             @Override
@@ -310,6 +291,29 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!snapshot.hasChild("username")){
                     sendToSetup();
+                }
+                else{
+                    usersRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String groupNumString = snapshot.child(mAuth.getCurrentUser().getUid()).child("groups").getValue().toString();
+                            int groupNum = Integer.parseInt(groupNumString);
+                            if( groupNum == 0){
+                                header.setText("GROUPS (" + groupNum + ")");
+                                noGroups.setVisibility(View.VISIBLE);
+                                groupsList.setVisibility(View.GONE);
+                            }
+                            else{
+                                header.setText("GROUPS (" + groupNum + ")");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
 
