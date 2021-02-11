@@ -535,6 +535,24 @@ public class GroupCreateActivity extends AppCompatActivity {
             }
         });
 
+        addSchoolButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit.putString("name", name.getText().toString());
+                edit.putString("description", description.getText().toString());
+                edit.putString("members", members.getText().toString());
+                edit.putString("subject", subject.getText().toString());
+                edit.putString("classType", classType.getText().toString());
+                edit.putString("school", school.getText().toString());
+                edit.putString("teacher", teacher.getText().toString());
+                edit.putString("period", period.getText().toString());
+                edit.putString("publicOrPrivate", publicOrPrivate);
+                edit.apply();
+
+                sendToAddSchool();
+            }
+        });
+
 
     }
 
@@ -799,7 +817,7 @@ public class GroupCreateActivity extends AppCompatActivity {
                         edit.apply();
                         //1 Second Timer to Switch to Group Activity
 
-                        new CountDownTimer(1000, 1000) {
+                        new CountDownTimer(300, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
 
@@ -830,6 +848,13 @@ public class GroupCreateActivity extends AppCompatActivity {
         finish();
     }
 
+
+    private void sendToAddSchool(){
+
+        Intent schoolIntent = new Intent(GroupCreateActivity.this, AddSchoolActivity.class);
+        startActivity(schoolIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
 
     public class MyAdapter extends ArrayAdapter<String> {
 

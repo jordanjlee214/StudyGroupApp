@@ -52,4 +52,12 @@
     <string name="pipe">"|"</string>
     <string name="group_create_group">"Create Group"</string>
     <string name="group_noGroups">"You are not in any groups."</string>
+    <string name="addSchool_header">"Add A School"</string>
+    <string name="addSchool_name">" School Name"</string>
+    <string name="addSchool_nameInstructions">"Please write out the full name of the school. For example, type Oakton High School instead of OHS."</string>
+    <string name="addSchool_city">" City"</string>
+    <string name="addSchool_state">" State"</string>
+    <string name="addSchool_button">"Add School"</string>
+    <string name="addSchool_goBack">"Go Back"</string>
+
 </resources>
