@@ -14,4 +14,6 @@
     <color name ="darkerGreen">#2D772D</color>
     <color name ="darkBlue">#155A91</color>
     <color name="darkRed">#882020</color>
+    <color name="openGroup">#17551A</color>
+    <color name="closedGroup">#6C1A1A</color>
 </resources>
