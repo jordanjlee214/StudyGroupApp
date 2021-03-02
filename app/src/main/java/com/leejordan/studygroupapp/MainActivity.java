@@ -64,13 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        if (findViewById(R.id.fragmentContainer) != null){
-            if (savedInstanceState != null){
-                return;
-            }
-            createFragment = new GroupCreateFragment();
-        }
-
 
         viewInvites = findViewById(R.id.groups_groupInvites);
         viewRequests = findViewById(R.id.groups_groupRequests);

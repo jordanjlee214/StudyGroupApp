@@ -98,52 +98,9 @@ public class GroupCreateActivity extends AppCompatActivity {
     private String groupID;
 
     private String publicOrPrivate;
-    private String[] subjects = {"Biology",
-            "Chemistry",
-            "Physics",
-            "Earth Science",
-            "Pre-Algebra",
-            "Algebra",
-            "Statistics",
-            "Pre-Calculus",
-            "Trigonometry",
-            "Calculus",
-            "Multivariable Calculus",
-            "World History",
-            "US History",
-            "European History",
-            "English",
-            "French",
-            "Spanish",
-            "German",
-            "Latin",
-            "Computer Science",
-            "Physical Education",
-            "Driver Education",
-            "Health",
-            "Art",
-            "Art History",
-            "Band",
-            "Orchestra",
-            "Chorus",
-            "Music Theory",
-            "Math",
-            "Government",
-            "Engineering",
-            "Science",
-            "Mobile App Development",
-            "Web App Development",
-            "Artificial Intelligence",
-            "Philosophy",
-            "Economics",
-    };
+    private String[] subjects = Subjects.SUBJECTS;
 
-    private String [] classTypes = {
-            "Regular",
-            "Honors",
-            "AP",
-            "IB",
-            "Other"};
+    private String [] classTypes = Subjects.CLASS_TYPES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -855,6 +812,12 @@ public class GroupCreateActivity extends AppCompatActivity {
         startActivity(schoolIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+    @Override
+    public void onBackPressed(){
+        sendToMain();
+        return;
+    }
+
 
     public class MyAdapter extends ArrayAdapter<String> {
 
@@ -940,3 +903,4 @@ public class GroupCreateActivity extends AppCompatActivity {
             //TODO: put study group in database using variables above and StudyGroup.java
         }
     }*/
+

@@ -8,17 +8,6 @@
     android:background="@color/darkBackground"
     android:backgroundTint="@color/darkBackground">
 
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        >
-    </FrameLayout>
-
 
     <Button
         android:layout_width="wrap_content"

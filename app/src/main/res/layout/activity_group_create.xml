@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input"
                 android:fontFamily="@font/circular_book"
-                android:hint=" Teacher (optional)"
+                android:hint=" Teacher (optional, last name only)"
                 android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black"

@@ -212,24 +212,7 @@ public class SetupActivity extends AppCompatActivity {
 
                                         }
                                     });
-//                            final String photoUrl = task.getResult().getStorage().getDownloadUrl().toString();
-//                            usersRef.child("profilePic").setValue(profileUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    loadingBar.dismiss();
-//                                    if (task.isSuccessful()){
-//                                        Log.i("PROFILE UPDATED 1", profileUrl);
-//                                        Toast.makeText(SetupActivity.this, "Your profile image has been successfully uploaded.", Toast.LENGTH_SHORT).show();
-//                                        usersRef.removeValue();
-//                                        Intent setupIntent  = new Intent(SetupActivity.this, SetupActivity.class);
-//                                        startActivity(setupIntent);
-//                                    }
-//                                    else{
-//                                        String error = task.getException().getMessage();
-//                                        Toast.makeText(SetupActivity.this, "Uh oh! An error occurred: " + error, Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
+
                                 }
                             });
                         } else {
@@ -297,34 +280,6 @@ public class SetupActivity extends AppCompatActivity {
         };
         usernamesRef.addListenerForSingleValueEvent(usernameListener);
 
-//        final boolean[] unique = {true};
-//
-//        if (u.length() > 0 && allUsersRef.getKey() != null) {
-////            Log.i("USERNAME", "RUNS");
-//            allUsersRef.orderByChild("username").equalTo(u).addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-////                    Log.i("USERNAME", String.valueOf(snapshot));
-//                    if (snapshot.exists()) {
-//                        unique[0] = false;
-//                        Log.i("USERNAME", "Unique is: " + unique[0]);
-////                        Toast.makeText(SetupActivity.this, "Your username is already taken. Enter a new one please.", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        unique[0] = true;
-//                        Log.i("USERNAME", "Unique is: " + unique[0]);
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//
-//        }
-
-//        Log.i("USERNAME", "Unique is (default): " + unique[0]);
         //check if all fields are filled out
         if (u.length() == 0 || fN.length() == 0 || lN.length() == 0 || g.length() == 0 || b.length() == 0 || s.length() == 0) {
             Toast.makeText(this, "Please fill out all fields first.", Toast.LENGTH_SHORT).show();

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBackground"
+    tools:context=".SearchFilterFragment"
+    >
+
+    <ImageView
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:id="@+id/searchFilter_icon"
+        android:src="@drawable/search_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.99"
+        >
+    </ImageView>
+
+    <TextView
+        android:layout_width="190sp"
+        android:id="@+id/search_header"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/searchtab"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.6">
+    </TextView>
+
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="5sp"
+    android:id="@+id/search_border1"
+    android:background="@color/mainTextColor"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintVertical_bias="0.13">
+
+</View>
+
+    <ImageView
+        android:layout_width="335sp"
+        android:layout_height="41sp"
+        android:id="@+id/searchFilter_border1"
+        android:src="@drawable/rounded_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.18"
+        >
+    </ImageView>
+
+    <TextView
+        android:layout_width="340sp"
+        android:id="@+id/searchFilter_text1"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/searchFilter_border1"
+        app:layout_constraintBottom_toBottomOf="@id/searchFilter_border1"
+        app:layout_constraintLeft_toLeftOf="@id/searchFilter_border1"
+        app:layout_constraintRight_toRightOf="@id/searchFilter_border1"
+        android:text="@string/searchFilter_section1"
+        android:fontFamily="@font/nexa_light"
+        android:textSize="23sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.5">
+    </TextView>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/searchFilter_school"
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input"
+        android:completionThreshold="0"
+        android:fontFamily="@font/circular_book"
+        android:hint="  School *"
+        android:inputType="text"
+        android:padding="7dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
+    <MultiAutoCompleteTextView
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/searchFilter_subject"
+        android:hint="  Subject(s) *"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.36"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:completionThreshold="0"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp">
+    </MultiAutoCompleteTextView>
+
+    <MultiAutoCompleteTextView
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/searchFilter_classType"
+        android:hint="  Class Type(s) *"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.44"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:completionThreshold="0"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp">
+    </MultiAutoCompleteTextView>
+
+    <EditText
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/searchFilter_teacher"
+        android:hint="  Teacher (optional)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.52"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp"
+
+        >
+    </EditText>
+
+    <EditText
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/searchFilter_period"
+        android:hint="  Period (optional)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp"
+
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/searchFilter_searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.69"
+        android:text="@string/searchFilter_buttonText1"
+        android:textAllCaps="false"
+        android:background="@drawable/input"
+        android:gravity="center_vertical"
+        android:padding="5sp"
+        android:textSize="20sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+    </Button>
+
+    <ImageView
+        android:layout_width="335sp"
+        android:layout_height="41sp"
+        android:id="@+id/searchFilter_border2"
+        android:src="@drawable/rounded_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.785"
+        >
+    </ImageView>
+
+    <TextView
+        android:layout_width="340sp"
+        android:id="@+id/searchFilter_text2"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/searchFilter_border2"
+        app:layout_constraintBottom_toBottomOf="@id/searchFilter_border2"
+        app:layout_constraintLeft_toLeftOf="@id/searchFilter_border2"
+        app:layout_constraintRight_toRightOf="@id/searchFilter_border2"
+        android:text="@string/searchFilter_section2"
+        android:fontFamily="@font/nexa_light"
+        android:textSize="23sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.5">
+    </TextView>
+
+    <EditText
+        android:layout_width="335sp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/searchFilter_code"
+        android:hint="  Group Code (6 characters)"
+        android:maxLength="6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.87"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp"
+
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/searchFilter_joinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.96"
+        android:text="@string/searchFilter_buttonText2"
+        android:textAllCaps="false"
+        android:background="@drawable/input"
+        android:gravity="center_vertical"
+        android:padding="5sp"
+        android:textSize="20sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
