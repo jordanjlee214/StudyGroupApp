@@ -43,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
     private DatabaseReference usersRef;
     private DatabaseReference userRef;
     private DatabaseReference usernamesRef;
+    private DatabaseReference groupsRef;
     private BottomNavigationView navigationBar;
     private EditText firstName, lastName, username, gender, birthday, school, bio;
     private Button update;
@@ -70,6 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentID);
         usernamesRef = FirebaseDatabase.getInstance().getReference().child("Usernames");
         profileRef = FirebaseStorage.getInstance().getReference().child("profile_pics");
+        groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
 
         usernameMap = new HashMap<>();
 
@@ -225,11 +227,46 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void updateFields(String username, String firstName, String lastName, String gender, String birthday, String school, String bio) {
+    private void updateFields(final String username, String firstName, String lastName, String gender, String birthday, String school, String bio) {
 
 
         final User newUser = new User(username, firstName, lastName, birthday, gender, school, bio, mAuth.getCurrentUser().getUid());
 
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                final String oldUsername = snapshot.child("username").getValue().toString();
+                if(snapshot.child("groupList").exists()){
+                    if(!oldUsername.equals(username)){
+                        for(DataSnapshot groupChild: snapshot.child("groupList").getChildren()){
+                            final String groupID = groupChild.getKey();
+                            groupsRef.child(groupID).child("users").child(currentID).setValue(username);
+
+                            groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String creatorUsername = snapshot.child(groupID).child("groupCreator").getValue().toString();
+                                    if(creatorUsername.equals(oldUsername)){
+                                        groupsRef.child(groupID).child("groupCreator").setValue(username);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         userRef.updateChildren(newUser.toMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

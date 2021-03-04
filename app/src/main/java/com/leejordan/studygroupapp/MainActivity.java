@@ -130,38 +130,39 @@ public class MainActivity extends AppCompatActivity {
         groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
         if(mAuth.getCurrentUser() != null){
             groupsOfUserRef = FirebaseDatabase.getInstance().getReference().child("GroupsOfUser").child(mAuth.getCurrentUser().getUid());
+            //update groupsOfUser to have same data as Groups branch
+            groupsOfUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.hasChildren()){
+                        for (final DataSnapshot groupID : snapshot.getChildren()){
+                            groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String id = groupID.getKey();
+                                    groupsOfUserRef.child(id).child("classType").setValue(snapshot.child(id).child("classType").getValue().toString());
+                                    groupsOfUserRef.child(id).child("groupCreator").setValue(snapshot.child(id).child("groupCreator").getValue().toString());
+                                    groupsOfUserRef.child(id).child("groupName").setValue(snapshot.child(id).child("groupName").getValue().toString());
+                                    groupsOfUserRef.child(id).child("members").setValue(Integer.parseInt(snapshot.child(id).child("members").getValue().toString()));
+                                    groupsOfUserRef.child(id).child("profilePic").setValue(snapshot.child(id).child("profilePic").getValue().toString());
+                                    groupsOfUserRef.child(id).child("subject").setValue(snapshot.child(id).child("subject").getValue().toString());
 
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
-
-
-
-
-
-//      initialGroup();
-//        HashMap<String, String> groupList = new HashMap<>();
-//        groupList.put("44sd2m", "4th Period Geosystems Stickler");
-//        usersRef.child(mAuth.getCurrentUser().getUid()).child("groupList").setValue(groupList);
-
-        //Establishes intial values for the database
-//        createInitialSchoolRef = FirebaseDatabase.getInstance().getReference().child("Schools");
-//        String id_one = RandomIDGenerator.generate();
-//        School school_one = new School("Thomas Jefferson High School for Science and Technology", "Alexandria", "VA", id_one);
-//        String id_two = RandomIDGenerator.generate();
-//        School school_two = new School("South Lakes High School", "Reston", "VA", id_two);
-//        String id_three = RandomIDGenerator.generate();
-//        School school_three = new School("Oakton High School", "Vienna", "VA", id_three);
-//        String id_four = RandomIDGenerator.generate();
-//        School school_four = new School("Chantilly High School", "Chantilly", "VA", id_four);
-//        createInitialSchoolRef.child(id_one).updateChildren(school_one.toMap());
-//        createInitialSchoolRef.child(id_two).updateChildren(school_two.toMap());
-//        createInitialSchoolRef.child(id_three).updateChildren(school_three.toMap());
-//        createInitialSchoolRef.child(id_four).updateChildren(school_four.toMap());
-
-//
-//        TextView text = (TextView) layout.findViewById(R.id.portal_toastText);
-//        text.setText(t);
-
-
     }
 
 
