@@ -3,7 +3,9 @@ package com.leejordan.studygroupapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -31,6 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends AppCompatActivity {
@@ -40,6 +44,51 @@ public class SearchActivity extends AppCompatActivity {
     private BottomNavigationView navigationBar;
     private FragmentManager fragmentManager;
     private SearchFilterFragment filterFragment;
+    private SearchListFragment listFragment;
+    private static String teacherParameter, periodParameter, classTypeParameter;
+    private static HashMap<String, String> schoolParameter;
+    private static String[] subjectsParameter;
+
+    public static String getTeacherParameter() {
+        return teacherParameter;
+    }
+
+    public static void setTeacherParameter(String teacherParameter) {
+        SearchActivity.teacherParameter = teacherParameter;
+    }
+
+    public static String getPeriodParameter() {
+        return periodParameter;
+    }
+
+    public static void setPeriodParameter(String periodParameter) {
+        SearchActivity.periodParameter = periodParameter;
+    }
+
+    public static String[] getSubjectsParameter() {
+        return subjectsParameter;
+    }
+
+    public static void setSubjectsParameter(String[] subjectsParameter) {
+        SearchActivity.subjectsParameter = subjectsParameter;
+    }
+
+    public static String getClassTypeParameter() {
+        return classTypeParameter;
+    }
+
+    public static void setClassTypeParameter(String classTypeParameter) {
+        SearchActivity.classTypeParameter = classTypeParameter;
+    }
+
+    public static HashMap<String, String> getSchoolParameter() {
+        return schoolParameter;
+    }
+
+    public static void setSchoolParameter(HashMap<String, String> schoolParameter) {
+        SearchActivity.schoolParameter = schoolParameter;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +133,7 @@ public class SearchActivity extends AppCompatActivity {
                 return;
             }
             filterFragment = new SearchFilterFragment();
+            listFragment = new SearchListFragment();
             fragmentManager.beginTransaction().add(R.id.search_container, filterFragment).commit();
         }
     }
@@ -147,6 +197,14 @@ public class SearchActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void swap(){
+//            fragmentManager.beginTransaction().add(R.id.search_container, listFragment).commit();
+            FragmentTransaction trans = fragmentManager.beginTransaction();
+            trans.replace(R.id.search_container, listFragment);
+                    trans.addToBackStack(null);
+            trans.commit();
     }
 
     private void sendToLogin() {
