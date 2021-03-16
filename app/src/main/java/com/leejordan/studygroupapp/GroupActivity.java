@@ -28,8 +28,8 @@ public class GroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
 
         name = findViewById(R.id.test_group_name);
-        subject = findViewById(R.id.test_group_subject);
-        id = findViewById(R.id.test_group_id);
+        //subject = findViewById(R.id.test_group_subject);
+        //id = findViewById(R.id.test_group_id);
         members = findViewById(R.id.test_group_members);
         members_icon = findViewById(R.id.membersIcon);
 

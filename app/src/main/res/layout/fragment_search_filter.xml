@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:id="@+id/searchFilter_subject"
-        android:hint="  Subject(s)"
+        android:hint="  Subject(s) *"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -123,12 +123,12 @@
         android:textSize="17sp">
     </MultiAutoCompleteTextView>
 
-    <AutoCompleteTextView
+    <MultiAutoCompleteTextView
         android:layout_width="335sp"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:id="@+id/searchFilter_classType"
-        android:hint="  Class Type"
+        android:hint="  Class Type(s) *"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -142,14 +142,14 @@
         android:completionThreshold="0"
         android:textColorHint="@color/gray"
         android:textSize="17sp">
-    </AutoCompleteTextView>
+    </MultiAutoCompleteTextView>
 
     <EditText
         android:layout_width="335sp"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:id="@+id/searchFilter_teacher"
-        android:hint="  Teacher"
+        android:hint="  Teacher (optional)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:id="@+id/searchFilter_period"
-        android:hint="  Period"
+        android:hint="  Period (optional)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
