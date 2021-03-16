@@ -137,7 +137,7 @@ public class SearchActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().add(R.id.search_container, filterFragment).commit();
         }
     }
-
+    //for groupmenu
     @Override
     protected void onStart() {
         super.onStart();
