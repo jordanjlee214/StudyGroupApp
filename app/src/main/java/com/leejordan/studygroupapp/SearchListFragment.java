@@ -2,12 +2,23 @@ package com.leejordan.studygroupapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,17 +27,13 @@ import android.widget.TextView;
  */
 public class SearchListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private SearchActivity searchActivity;
-    private TextView school, subjects, classType, teacher, period;
-
+    private DatabaseReference groupsRef;
+    private EditText groupName;
+    private ImageView searchButton;
+    private String schoolName, schoolCity, schoolState, classType, teacher, period;
+    private String[] subjects;
+    private RecyclerView recyclerView;
     public SearchListFragment() {
         // Required empty public constructor
     }
@@ -42,6 +49,7 @@ public class SearchListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         searchActivity = (SearchActivity) getContext();
 
+        groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
     }
 
     @Override
@@ -50,45 +58,66 @@ public class SearchListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_list, container, false);
 
-        school = view.findViewById(R.id.search_test_school);
-        subjects = view.findViewById(R.id.search_test_subjects);
-        classType = view.findViewById(R.id.search_test_classType);
-        teacher = view.findViewById(R.id.search_test_teacher);
-        period = view.findViewById(R.id.search_test_period);
-
-        school.setText(searchActivity.getSchoolParameter().get("schoolName") + " " + searchActivity.getSchoolParameter().get("schoolCity")  + " " + searchActivity.getSchoolParameter().get("schoolState") );
+        //SET UP PARAMETERS
+        schoolName = searchActivity.getSchoolParameter().get("schoolName");
+        schoolCity = searchActivity.getSchoolParameter().get("schoolCity");
+        schoolState = searchActivity.getSchoolParameter().get("schoolState");
 
         if(searchActivity.getSubjectsParameter().length > 0){
-            String[] array = searchActivity.getSubjectsParameter();
-            String subjectsText = "";
-            for(int i = 0; i < searchActivity.getSubjectsParameter().length; i++){
-                subjectsText += array[i] + " ";
-            }
-            subjects.setText(subjectsText);
-        }
-        else{
-            subjects.setText("NONE");
-        }
+            subjects = searchActivity.getSubjectsParameter();
+        } //else, subjects is null
 
         if(searchActivity.getClassTypeParameter().length() > 0){
-            classType.setText(searchActivity.getClassTypeParameter());
-        }
-        else{
-            classType.setText("NONE");
-        }
+            classType = searchActivity.getClassTypeParameter();
+        } //else, class type is null
+
         if(searchActivity.getTeacherParameter().length() > 0){
-            teacher.setText(searchActivity.getTeacherParameter());
-        }
-        else{
-            teacher.setText("NONE");
-        }
+            teacher = searchActivity.getTeacherParameter();
+        } //else, teacher is null
+
         if(searchActivity.getPeriodParameter().length() > 0){
-            period.setText(searchActivity.getPeriodParameter());
-        }
-        else{
-            period.setText("NONE");
-        }
+            period = searchActivity.getPeriodParameter();
+        } //else, period is null
+
+        //SET UP VIEWS
+        groupName = view.findViewById(R.id.searchList_name);
+        searchButton = view.findViewById(R.id.searchList_searchButton);
+        recyclerView = view.findViewById(R.id.searchList_groupList);
+
+        //SET UP SEARCH BUTTON
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+    }
+
+    public class SearchViewHolder extends RecyclerView.ViewHolder {
+        TextView members, name, subject, owner;
+        CircleImageView profile;
+
+        public SearchViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            members = itemView.findViewById(R.id.searchMembersListItem);
+            name = itemView.findViewById(R.id.searchNameListItem);
+            subject = itemView.findViewById(R.id.searchSubjectListItem);
+            owner = itemView.findViewById(R.id.searchOwnerListItem);
+            profile = itemView.findViewById(R.id.searchProfileListItem);
+
+
+        }
+    }
+
 }

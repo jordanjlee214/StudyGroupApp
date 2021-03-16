@@ -202,6 +202,7 @@ public class SearchActivity extends AppCompatActivity {
     public void swap(){
 //            fragmentManager.beginTransaction().add(R.id.search_container, listFragment).commit();
             FragmentTransaction trans = fragmentManager.beginTransaction();
+        trans.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
             trans.replace(R.id.search_container, listFragment);
                     trans.addToBackStack(null);
             trans.commit();

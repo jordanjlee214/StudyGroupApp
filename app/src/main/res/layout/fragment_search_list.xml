@@ -4,67 +4,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkBackground"
     tools:context=".SearchListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="190sp"
+        android:id="@+id/searchList_header"
         android:layout_height="wrap_content"
-        android:id="@+id/search_test_school"
-        android:text="School"
-        android:textColor="@color/mainTextColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.1"/>
+        android:text="@string/searchtab"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.6">
+    </TextView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_test_teacher"
-        android:text="Teacher"
-        android:textColor="@color/mainTextColor"
-        app:layout_constraintTop_toTopOf="parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:id="@+id/searchList_border1"
+        android:background="@color/mainTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.13">
+    </View>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_test_subjects"
-        android:text="Subjects"
-        android:textColor="@color/mainTextColor"
+    <ImageView
+        android:layout_width="35sp"
+        android:layout_height="35sp"
+        android:id="@+id/searchList_icon"
+        android:src="@drawable/search_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/searchList_header"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.2"/>
+        app:layout_constraintVertical_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.99"
+        >
+    </ImageView>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="320sp"
         android:layout_height="wrap_content"
-        android:id="@+id/search_test_classType"
-        android:text="Class Type"
-        android:textColor="@color/mainTextColor"
-        app:layout_constraintTop_toTopOf="parent"
+        android:singleLine="true"
+        android:id="@+id/searchList_name"
+        android:hint="  Group Name"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.3"/>
+        app:layout_constraintVertical_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.23"
+        android:background="@drawable/input"
+        android:fontFamily="@font/circular_book"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:textColorHint="@color/gray"
+        android:textSize="17sp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_test_period"
-        android:text="Period"
-        android:textColor="@color/mainTextColor"
+        >
+    </EditText>
+
+
+    <ImageView
+        android:layout_width="39sp"
+        android:layout_height="39sp"
+        android:id="@+id/searchList_searchButton"
+        android:src="@drawable/search_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/searchList_name"
+        app:layout_constraintVertical_bias="0.184"
+        app:layout_constraintHorizontal_bias="0.35"
+        android:background="@drawable/input"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:padding="7sp"
+        >
+    </ImageView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:id="@+id/searchList_border2"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.27">
+    </View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchList_groupList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchList_border2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/search_list_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8sp"
+    android:layout_marginBottom="2sp"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <ImageView
+        android:id="@+id/searchListBackground"
+        android:layout_width="380sp"
+        android:layout_height="80sp"
+        android:src="@drawable/rounded_rectangle_green"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <TextView
+        android:layout_width="380sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchNameListItem"
+        android:text="@string/group_name_test"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:gravity="start"
+        android:paddingStart="11sp"
+        app:layout_constraintTop_toTopOf="@id/searchListBackground"
+        app:layout_constraintBottom_toBottomOf="@id/searchListBackground"
+        app:layout_constraintLeft_toLeftOf="@id/searchListBackground"
+        app:layout_constraintRight_toRightOf="@id/searchListBackground"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        app:layout_constraintVertical_bias="0.11"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="7"
+        android:shadowColor="@color/black"
+        >
+    </TextView>
+
+    <ImageView
+        android:layout_width="320sp"
+        android:layout_height="44sp"
+        android:src="@drawable/rounded_rectangle_light_green"
+        android:id="@+id/searchListInnerRectangle"
+        app:layout_constraintTop_toTopOf="@id/searchListBackground"
+        app:layout_constraintRight_toRightOf="@id/searchListBackground"
+        app:layout_constraintBottom_toBottomOf="@id/searchListBackground"
+        app:layout_constraintVertical_bias="0.8"
+        android:paddingEnd="7sp"
+        >
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchMembersListItem"
+        android:text="@string/group_member_test"
+        android:gravity="bottom"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_bold"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchMembersIconListItem"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="22sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintVertical_bias="0.4">
+
+    </TextView>
+
+    <ImageView
+        android:layout_width="27sp"
+        android:layout_height="27sp"
+        android:id="@+id/searchMembersIconListItem"
+        android:src="@drawable/groups_icon"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toLeftOf="@id/searchListInnerRectangle"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintVertical_bias="0.55"
+        ></ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchSubjectListItem_Label"
+        android:text="@string/group_subject_label"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_bold"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchDividerListItem"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="11sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintVertical_bias="0.27">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchSubjectListItem"
+        android:text="@string/group_subject_test"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_book"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchSubjectListItem_Label"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="11sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintVertical_bias="0.27">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchOwnerListItem_Label"
+        android:text="@string/group_owner_label"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_bold"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchDividerListItem"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="11sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintVertical_bias="0.74">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchOwnerListItem"
+        android:text="@string/group_owner_test"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_book"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchOwnerListItem_Label"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="11sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintVertical_bias="0.74">
+
+    </TextView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchDividerListItem"
+        android:text="@string/pipe"
+        android:textColor="@color/black"
+        android:fontFamily="@font/circular_book"
+        app:layout_constraintTop_toTopOf="@id/searchListInnerRectangle"
+        app:layout_constraintBottom_toBottomOf="@id/searchListInnerRectangle"
+        app:layout_constraintLeft_toRightOf="@id/searchMembersListItem"
+        app:layout_constraintRight_toRightOf="@id/searchListInnerRectangle"
+        android:textSize="27sp"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintVertical_bias="0.4">
+
+    </TextView>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="42sp"
+        android:layout_height="42sp"
+        app:layout_constraintTop_toTopOf="@id/searchListBackground"
+        app:layout_constraintBottom_toBottomOf="@id/searchListBackground"
+        app:layout_constraintLeft_toLeftOf="@id/searchListBackground"
+        app:layout_constraintRight_toRightOf="@id/searchListBackground"
+        android:src="@drawable/blank_group_profile"
+        android:id="@+id/searchProfileListItem"
+        app:layout_constraintVertical_bias="0.78"
+        app:layout_constraintHorizontal_bias="0.03"
+        >
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
