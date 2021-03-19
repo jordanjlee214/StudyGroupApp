@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:id="@+id/searchList_name"
-        android:hint="  Group Name"
+        android:hint="  Group Name (case-sensitive)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

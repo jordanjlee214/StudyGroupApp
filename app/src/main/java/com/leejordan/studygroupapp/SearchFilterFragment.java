@@ -112,6 +112,34 @@ public class SearchFilterFragment extends Fragment {
         searchButton = view.findViewById(R.id.searchFilter_searchButton);
         joinButton = view.findViewById(R.id.searchFilter_joinButton);
 
+        if(searchActivity.getSchoolParameter() != null){
+            school.setText(searchActivity.getSchoolParameter().get("schoolName") + "," + searchActivity.getSchoolParameter().get("schoolCity") + "," + searchActivity.getSchoolParameter().get("schoolState"));
+        }
+
+        if(searchActivity.getSubjectsParameter() != null){
+            String subjectsString = "";
+            for(int i= 0; i < searchActivity.getSubjectsParameter().length; i++){
+                if(i == (searchActivity.getSubjectsParameter().length -1)){
+                    subjectsString += searchActivity.getSubjectsParameter()[i];
+                }
+                else{
+                    subjectsString += searchActivity.getSubjectsParameter()[i] + ", ";
+                }
+            }
+            subject.setText(subjectsString);
+        }
+
+        if(searchActivity.getTeacherParameter() != null){
+            teacher.setText(searchActivity.getTeacherParameter());
+        }
+
+        if(searchActivity.getClassTypeParameter() != null){
+            classType.setText(searchActivity.getClassTypeParameter());
+        }
+        if(searchActivity.getPeriodParameter() != null){
+            period.setText(searchActivity.getPeriodParameter());
+        }
+
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

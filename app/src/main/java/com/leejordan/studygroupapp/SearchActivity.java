@@ -152,6 +152,8 @@ public class SearchActivity extends AppCompatActivity {
         else{
             checkUserExistence();
         }
+
+
     }
 
     @Override

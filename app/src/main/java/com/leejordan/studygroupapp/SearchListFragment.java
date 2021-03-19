@@ -13,17 +13,20 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -54,6 +57,7 @@ public class SearchListFragment extends Fragment {
     private ArrayList<GroupListItem> groupArray, groupArray2;
     private TextView noGroups;
     private Button goBack;
+    private boolean nameSearched;
 
     public SearchListFragment() {
         // Required empty public constructor
@@ -75,6 +79,8 @@ public class SearchListFragment extends Fragment {
         groupArray2 = new ArrayList<>();
 
         groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
+
+        nameSearched = false;
     }
 
     @Override
@@ -108,18 +114,183 @@ public class SearchListFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerView.setAdapter(adapter2);
+                //hides keyboard
+                InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.hideSoftInputFromWindow(groupName.getWindowToken(), 0);
+
+                String nameInput = groupName.getText().toString();
+                if(goBack.getVisibility() == View.GONE || (goBack.getVisibility() != View.GONE && nameSearched)) {
+                    noGroups.setVisibility(View.GONE);
+                    goBack.setVisibility(View.GONE);
+                    if (nameInput.length() == 0) {
+                        recyclerView.setAdapter(adapter);
+                        noGroups.setVisibility(View.GONE);
+                        goBack.setVisibility(View.GONE);
+                        goBack.setText("    Go Back    ");
+                        nameSearched = false;
+                    } else {
+                        nameSearched = true;
+                        goBack.setText("    Search All    ");
+                        groupArray2.clear();
+                        Query nameQuery = groupsRef.orderByChild("groupName").startAt(nameInput).endAt(nameInput + "\uf8ff");
+                        nameQuery.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot group : snapshot.getChildren()) {
+
+                                    String name = group.child("groupName").getValue().toString();
+                                    int members = Integer.parseInt(group.child("members").getValue().toString());
+                                    String creator = group.child("groupCreator").getValue().toString();
+                                    String subject = group.child("subject").getValue().toString();
+                                    String class_type = group.child("classType").getValue().toString();
+                                    String profileLink = group.child("profilePic").getValue().toString();
+                                    String id = group.child("groupID").getValue().toString();
+                                    String sName = group.child("schoolName").getValue().toString();
+                                    String sCity = group.child("schoolCity").getValue().toString();
+                                    String sState = group.child("schoolState").getValue().toString();
+                                    String t = group.child("teacher").getValue().toString();
+                                    String p = group.child("periodNumber").getValue().toString();
+                                    boolean isPublic = (Boolean) group.child("isPublic").getValue();
+                                    boolean isFilled = (Boolean) group.child("isFilled").getValue();
+
+                                    //booleans to check if paramter exists
+                                    boolean subjectExists = subjects != null;
+                                    Log.i("SEARCHLIST", "Subjects exists " + subjectExists);
+                                    boolean classTypeExists = classType.length() > 0;
+                                    Log.i("SEARCHLIST", "Class type exists " + classTypeExists);
+                                    boolean teacherExists = teacher.length() > 0;
+                                    Log.i("SEARCHLIST", "Teacher exists " + teacherExists);
+                                    boolean periodExists = period.length() > 0;
+                                    Log.i("SEARCHLIST", "Period exists " + periodExists);
+
+                                    //schools match
+                                    boolean schoolMatch = sName.equals(schoolName) && sCity.equals(schoolCity) && sState.equals(schoolState);
+
+                                    boolean subjectMatch = false;
+                                    if (subjectExists) {
+                                        for (int i = 0; i < subjects.length; i++) {
+                                            if (subject.equals(subjects[i])) {
+                                                subjectMatch = true;
+                                            }
+                                        }
+                                    }
+
+                                    boolean classTypeMatch = false;
+                                    if (classTypeExists) {
+                                        classTypeMatch = class_type.equals(classType);
+                                    }
+
+                                    boolean teacherMatch = false;
+                                    if (teacherExists) {
+                                        teacherMatch = t.toLowerCase().contains(teacher.toLowerCase()) || teacher.toLowerCase().contains(t.toLowerCase());
+                                    }
+
+                                    boolean periodMatch = false;
+                                    if (periodExists) {
+                                        periodMatch = p.equals(period);
+                                    }
+
+                                    //only school
+                                    if (!subjectExists && !classTypeExists && !teacherExists && !periodExists) {
+                                        if (schoolMatch && !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //only school and subject
+                                    else if (subjectExists & !classTypeExists && !teacherExists && !periodExists) {
+                                        if (schoolMatch && !isFilled && isPublic && subjectMatch) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //only school, subject, and class type
+                                    else if (subjectExists && classTypeExists && !teacherExists && !periodExists) {
+                                        if (schoolMatch && subjectMatch && classTypeMatch && !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, subject, class type, and teacher
+                                    else if (subjectExists && classTypeExists && teacherExists && !periodExists) {
+                                        if (schoolMatch && subjectMatch && classTypeMatch && teacherMatch && !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, subject, class type, teacher, and period
+                                    else if (subjectExists && classTypeExists && teacherExists && periodExists) {
+                                        if (schoolMatch && subjectMatch && classTypeMatch && teacherMatch && periodMatch & !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, teacher, period
+                                    else if (teacherExists && periodExists && !subjectExists && !classTypeExists) {
+                                        if (schoolMatch && teacherMatch && periodMatch && isPublic && !isFilled) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, teacher
+                                    else if (teacherExists && !periodExists && !subjectExists && !classTypeExists) {
+                                        if (schoolMatch && teacherMatch && !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, subject, teacher, and period
+                                    else if (subjectExists && teacherExists && periodExists && !classTypeExists) {
+                                        if (schoolMatch && subjectMatch && teacherMatch && periodMatch && !isFilled && isPublic) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+                                    //School, subject, teacher
+                                    else if (subjectExists && teacherExists && !periodExists && !classTypeExists) {
+                                        if (schoolMatch && !isFilled && isPublic && subjectMatch && teacherMatch) {
+                                            GroupListItem groupItem = new GroupListItem(name, members, creator, subject, class_type, profileLink, id);
+                                            groupArray2.add(groupItem);
+                                        }
+                                    }
+
+                                }
+                                recyclerView.setAdapter(adapter2);
+                                if (groupArray2.size() == 0) {
+                                    goBack.setVisibility(View.VISIBLE);
+                                    noGroups.setVisibility(View.VISIBLE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+
 //                GroupListItem test2 = new GroupListItem("hi2", 1, "i1234", "dsfa", "AP", "https://firebasestorage.googleapis.com/v0/b/studygroupapp-33f55.appspot.com/o/group_profile_pics%2F01nw3m.jpg?alt=media&token=59546485-b214-4297-8577-5df9bf60a678", "sdafa");
 //                groupArray2.add(test2);
 
                 //TODO: update group array
-            }
-        });
+
+        }});
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchActivity.swapBack();
+                if(nameSearched){
+                    recyclerView.setAdapter(adapter);
+                    noGroups.setVisibility(View.GONE);
+                    goBack.setVisibility(View.GONE);
+                    nameSearched = false;
+                    goBack.setText("    Go Back    ");
+                    groupName.setText("");
+                }
+                else{
+                    searchActivity.swapBack();
+                }
             }
         });
 
