@@ -113,6 +113,42 @@
         app:layout_constraintRight_toRightOf="parent"
         ></androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:layout_width="350sp"
+        android:id="@+id/searchList_noGroups"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/searchList_border2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/searchList_noGroups"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
+        app:layout_constraintVertical_bias="0.44">
+    </TextView>
+
+    <Button
+        android:id="@+id/searchList_goBack"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.71"
+        android:text="@string/searchList_goBack"
+        android:textAllCaps="false"
+        android:background="@drawable/input"
+        android:gravity="center_vertical"
+        android:padding="5sp"
+        android:textSize="20sp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+    </Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

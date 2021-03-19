@@ -411,7 +411,7 @@ public class SearchFilterFragment extends Fragment {
                             searchActivity.setSubjectsParameter(subjects);
                         }
                         else{
-                            searchActivity.setSubjectsParameter(new String[0]);
+                            searchActivity.setSubjectsParameter(null);
                         }
 
                         if(classTypeInput.length() > 0){

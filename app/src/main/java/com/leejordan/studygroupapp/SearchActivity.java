@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -203,10 +204,20 @@ public class SearchActivity extends AppCompatActivity {
 //            fragmentManager.beginTransaction().add(R.id.search_container, listFragment).commit();
             FragmentTransaction trans = fragmentManager.beginTransaction();
         trans.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
-            trans.replace(R.id.search_container, listFragment);
-                    trans.addToBackStack(null);
+            trans.replace(R.id.search_container, new SearchListFragment(), "LIST_FRAGMENT");
+            trans.addToBackStack(null);
             trans.commit();
     }
+
+    public void swapBack(){
+//            fragmentManager.beginTransaction().add(R.id.search_container, listFragment).commit();
+        FragmentTransaction trans = fragmentManager.beginTransaction();
+        trans.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
+        trans.replace(R.id.search_container, new SearchFilterFragment(), "NEW_FRAGMENT");
+        trans.addToBackStack(null);
+        trans.commit();
+    }
+
 
     private void sendToLogin() {
         Intent loginIntent = new Intent(SearchActivity.this, LoginActivity.class);
@@ -361,4 +372,21 @@ public class SearchActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    @Override
+    public void onBackPressed() {
+        SearchFilterFragment myFragment = (SearchFilterFragment) getSupportFragmentManager().findFragmentByTag("NEW_FRAGMENT");
+        SearchListFragment myFragment2 = (SearchListFragment) getSupportFragmentManager().findFragmentByTag("LIST_FRAGMENT");
+        if(filterFragment.isVisible()){
+            sendToGroups();
+        }
+        else if(listFragment.isVisible()){
+            swapBack();
+        }
+        else if(myFragment != null && myFragment.isVisible()){
+            sendToGroups();
+        }
+        else if(myFragment2 != null && myFragment2.isVisible()){
+            swapBack();
+        }
+    }
 }

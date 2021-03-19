@@ -69,6 +69,8 @@
     <string name="searchFilter_section1">Search By School &amp; Class</string>
     <string name="group_teacherPeriod">"Teacher: N/A     Period: N/A"</string>
     <string name="searchFilter_section2">Enter Group Code</string>
+    <string name="searchList_noGroups">"There are no groups within your search parameters."</string>
+    <string name="searchList_goBack">"    Go Back    "</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
