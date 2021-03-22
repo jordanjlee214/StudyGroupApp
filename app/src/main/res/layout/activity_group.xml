@@ -8,17 +8,33 @@
     android:background="@color/darkBackground"
     android:backgroundTint="@color/darkBackground">
 
+    <TextView
+        android:id="@+id/test_group_header_background"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/group_menu_header"
+        android:padding="8dp"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_guide"
+        app:layout_constraintHorizontal_weight=".9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/left_guide"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".05"
+        />
 
     <TextView
         android:id="@+id/test_group_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/group_menu_header"
         android:fontFamily="@font/nexa_bold"
         android:padding="8dp"
         android:textColor="@color/mainTextColor"
         android:textSize="18dp"
-        android:text="hello"
+        android:text="Group Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/test_group_members"
         app:layout_constraintHorizontal_weight=".9"
@@ -33,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:padding="8dp"
-        android:text="         12"
+        android:text="         1"
         android:textAlignment="viewEnd"
         android:textColor="@color/mainTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +57,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".05"
         android:textSize="18dp"
-
+        android:background="@drawable/group_menu_header"
         android:fontFamily="@font/nexa_bold"/>
 
     <ImageView
@@ -53,28 +69,6 @@
         app:layout_constraintStart_toEndOf="@+id/test_group_name"
         app:layout_constraintTop_toTopOf="@+id/test_group_members"
         app:srcCompat="@drawable/groups" />
-
-    <TextView
-        android:id="@+id/test_group_subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintRight_toRightOf="parent">
-    </TextView>
-
-    <TextView
-        android:id="@+id/test_group_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        app:layout_constraintRight_toRightOf="parent">
-    </TextView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_guide"
@@ -90,7 +84,138 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
+    <LinearLayout
+        android:id="@+id/linearlayout_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintTop_toBottomOf="@+id/test_group_header_background"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_group"
+        app:layout_constraintEnd_toStartOf="@+id/right_guide"
+        app:layout_constraintStart_toStartOf="@+id/left_guide"
+        app:layout_constraintVertical_bias=".97">
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5">
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="90">
+
+            <LinearLayout
+                android:id="@+id/inside_linearlayout_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="100"
+                app:layout_constraintVertical_bias=".97">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="75">
+
+                    <androidx.fragment.app.FragmentContainerView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/groupfragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10">
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5">
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/group_menu_header"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_guide"
+        app:layout_constraintStart_toStartOf="@+id/left_guide"
+        app:layout_constraintVertical_bias=".9">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/group_info_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/groupinfo"
+                android:onClick="openGroupInfo"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/group_messages_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/messages"
+                android:onClick="openGroupMessages"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/group_calendar_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/calendar"
+                android:onClick="openGroupCalendar"/>
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/group_flashcards_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/flashcards"
+            android:onClick="openGroupFlashcards"/>
+
+        <ImageButton
+            android:id="@+id/group_studymats_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/studymats"
+            android:onClick="openGroupStudymats"/>
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
