@@ -44,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference usersRef;
     private BottomNavigationView navigationBar;
     private FragmentManager fragmentManager;
+    private SearchGroupInfoFragment groupInfoFragment;
     private SearchFilterFragment filterFragment;
     private SearchListFragment listFragment;
     private static String teacherParameter, periodParameter, classTypeParameter;
@@ -135,6 +136,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             filterFragment = new SearchFilterFragment();
             listFragment = new SearchListFragment();
+            groupInfoFragment = new SearchGroupInfoFragment();
             fragmentManager.beginTransaction().add(R.id.search_container, filterFragment).commit();
         }
     }
@@ -372,6 +374,15 @@ public class SearchActivity extends AppCompatActivity {
         Intent settingsIntent = new Intent(SearchActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    public void groupInfoOn(){
+
+        fragmentManager.beginTransaction().add(R.id.search_container, groupInfoFragment).commit();
+    }
+
+    public void groupInfoOff(){
+        fragmentManager.beginTransaction().remove(groupInfoFragment).commit();
     }
 
     @Override

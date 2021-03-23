@@ -185,6 +185,22 @@ public class GroupActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    public void openGroupMessages() {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
+        Bundle b = new Bundle();
+        b.putString("currentgroupid",CurrentGroup.currentGroupID);
+        MessageFragment msg = new MessageFragment();
+        msg.setArguments(b);
+        ft.replace(R.id.groupfragment, msg).commit();
+        infobutton.setEnabled(true);
+        messagesbutton.setEnabled(false);
+        calendarbutton.setEnabled(true);
+        flashcardsbutton.setEnabled(true);
+        studymatsbutton.setEnabled(true);
+        Log.i("hi","message fragment button clicked");
+    }
+
     @Override
     public void onBackPressed() {
         sendToGroups();

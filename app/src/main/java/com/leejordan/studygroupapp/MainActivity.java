@@ -296,23 +296,26 @@ public class MainActivity extends AppCompatActivity {
         currentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChild("username")){
+                if(!snapshot.hasChild("username") || !snapshot.hasChild("groups")){
                     sendToSetup();
                 }
                 else{
                     usersRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String groupNumString = snapshot.child(mAuth.getCurrentUser().getUid()).child("groups").getValue().toString();
-                            int groupNum = Integer.parseInt(groupNumString);
-                            if( groupNum == 0){
-                                header.setText("GROUPS (" + groupNum + ")");
-                                noGroups.setVisibility(View.VISIBLE);
-                                groupsList.setVisibility(View.GONE);
+                            if(snapshot.child(mAuth.getCurrentUser().getUid()).hasChild("groups")){
+                                String groupNumString = snapshot.child(mAuth.getCurrentUser().getUid()).child("groups").getValue().toString();
+                                int groupNum = Integer.parseInt(groupNumString);
+                                if( groupNum == 0){
+                                    header.setText("GROUPS (" + groupNum + ")");
+                                    noGroups.setVisibility(View.VISIBLE);
+                                    groupsList.setVisibility(View.GONE);
+                                }
+                                else{
+                                    header.setText("GROUPS (" + groupNum + ")");
+                                }
                             }
-                            else{
-                                header.setText("GROUPS (" + groupNum + ")");
-                            }
+
                         }
 
                         @Override

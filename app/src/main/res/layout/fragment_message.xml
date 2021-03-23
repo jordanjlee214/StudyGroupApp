@@ -6,11 +6,11 @@
     android:background="@color/darkBackground"
     android:layout_height="match_parent">
     <!--TODO: put ur messaging app thing here-->
+
     <TextView
-        android:id="@+id/messages_title"
+        android:id="@+id/messages_headerBG"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/messages_header"
         android:textAlignment="center"
         android:gravity="center_vertical"
         android:textColor="@color/mainTextColor"
@@ -23,6 +23,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/messages_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/messages_header"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        app:layout_constraintVertical_bias="0.0"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/messages_headerBG"
+        app:layout_constraintEnd_toEndOf="@id/messages_headerBG"
+        app:layout_constraintStart_toStartOf="@id/messages_headerBG"
+        app:layout_constraintTop_toTopOf="@id/messages_headerBG"
+        android:textSize="18sp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/headerborder"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.53">
+    </androidx.constraintlayout.widget.Guideline>
+
+    <TextView
+        android:id="@+id/messages_creatorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/messages_header"
+        android:gravity="center_vertical"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="0.99"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/messages_headerBG"
+        app:layout_constraintEnd_toStartOf="@id/headerborder"
+        app:layout_constraintStart_toStartOf="@id/messages_headerBG"
+        app:layout_constraintTop_toTopOf="@id/messages_headerBG"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/messages_delete"
+        android:layout_width="83dp"
+        android:layout_height="20dp"
+        android:background="@drawable/input"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/nexa_bold"
+        android:padding="3dp"
+        android:text="@string/delete_all"
+        android:textColor="@color/mainTextColor"
+        android:textAllCaps="false"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="@id/messages_headerBG"
+        app:layout_constraintEnd_toEndOf="@id/messages_headerBG"
+        app:layout_constraintStart_toEndOf="@id/headerborder"
+        app:layout_constraintTop_toTopOf="@id/messages_headerBG"
+        app:layout_constraintHorizontal_bias="0.1"></Button>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"

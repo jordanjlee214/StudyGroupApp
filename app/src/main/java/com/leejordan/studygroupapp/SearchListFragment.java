@@ -557,6 +557,7 @@ public class SearchListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                    //view fragment/toast
+                    openGroupInfo();
                 }
             });
 
@@ -639,6 +640,7 @@ public class SearchListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //view fragment/toast
+                    openGroupInfo();
 
                 }
             });
@@ -652,6 +654,9 @@ public class SearchListFragment extends Fragment {
         }
     }
 
+    public void openGroupInfo(){
+//        searchActivity.groupInfoOn();
+    }
 
 
 

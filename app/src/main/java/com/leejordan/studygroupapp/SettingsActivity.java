@@ -198,6 +198,11 @@ public class SettingsActivity extends AppCompatActivity {
         String b = bio.getText().toString();
         b = b.trim();
 
+        if(bday.length() == 6 && isNumeric(bday)){
+            bday = bday.substring(0, 2) + "/" + bday.substring(2, 4) + "/" + bday.substring(4, 6);
+        }
+
+
         if (u.length() == 0 || fN.length() == 0 || lN.length() == 0 || g.length() == 0 || b.length() == 0 || s.length() == 0 || bday.length() == 0) {
             Toast.makeText(this, "Please fill out all fields first.", Toast.LENGTH_SHORT).show();
         } else if (!g.equals("M") && !g.equals("F") && !g.equals("N/A")) {
@@ -208,9 +213,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
         //check if birthday is input correctly
         else if (bday.length() != 8) {
-            Toast.makeText(this, "Please input birthday correctly as mm/dd/yy or mm.dd.yy", Toast.LENGTH_SHORT).show();
-        } else if (((bday.charAt(2) != '/' || bday.charAt(5) != '/') &&  ( bday.charAt(2) != '.' ||  bday.charAt(2) != '.')) ||  !isNumeric(bday.substring(0, 2)) || !isNumeric(bday.substring(3, 5)) || !isNumeric(bday.substring(6, 8))) {
-            Toast.makeText(this, "Please input birthday correctly as mm/dd/yy or mm.dd.yy", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please input birthday correctly as mm/dd/yy or mmddyy", Toast.LENGTH_SHORT).show();
+        } else if (((bday.charAt(2) != '/' || bday.charAt(5) != '/')) ||  !isNumeric(bday.substring(0, 2)) || !isNumeric(bday.substring(3, 5)) || !isNumeric(bday.substring(6, 8))) {
+            Toast.makeText(this, "Please input birthday correctly as mm/dd/yy or mmddyy", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(bday.substring(0, 2)) > 12 || Integer.parseInt(bday.substring(0, 2)) <= 0) {
             Toast.makeText(this, "You did not enter a valid month for the birthday.", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(bday.substring(3, 5)) > 31 || Integer.parseInt(bday.substring(3, 5)) <= 0) {

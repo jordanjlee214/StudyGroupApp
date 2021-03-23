@@ -21,7 +21,7 @@
     <string name="inputLastName">"  Last Name"</string>
     <string name="inputUsername">"  Username"</string>
     <string name="inputGender">"  Gender (type M, F, or N/A)"</string>
-    <string name="inputBirthday">"  Birthday (type as mm/dd/yy or mm.dd.yy)"</string>
+    <string name="inputBirthday">"  Birthday (type as mm/dd/yy or mmddyy)"</string>
     <string name="inputSchool">"  School"</string>
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
@@ -76,5 +76,6 @@
     <string name="messages_header">GROUP CHAT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_all">Delete All</string>
 
 </resources>
