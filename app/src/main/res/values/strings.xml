@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudyGroupApp</string>
+    <string name="app_name">Studia</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -8,7 +8,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="name">"weStudy"</string>
+    <string name="name">"STUDIA"</string>
     <string name="welcome">"Welcome To"</string>
     <string name="signUp">"Don't have an account? Sign up!"</string>
     <string name="email">"  Email"</string>

@@ -8,6 +8,21 @@
     android:backgroundTint="@color/darkBackground"
     tools:context=".LoginActivity">
 
+
+
+    <ImageView
+        android:id="@+id/appicon"
+        android:src="@drawable/studia_icon"
+        android:layout_width="110sp"
+        android:layout_height="110sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.11"
+        >
+    </ImageView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,27 +32,30 @@
         android:fontFamily="@font/nexa_bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/appicon"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="65sp"
+        android:textSize="56sp"
         android:textAllCaps="false"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.01"
         >
     </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/appwelcome"
         android:text="@string/welcome"
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/nexa_light"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/appname"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/appicon"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textAllCaps="false"
-        app:layout_constraintVertical_bias="0.99"
+        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.13"
         >
     </TextView>
 
