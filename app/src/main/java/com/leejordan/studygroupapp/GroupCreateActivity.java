@@ -626,6 +626,8 @@ public class GroupCreateActivity extends AppCompatActivity {
             Toast.makeText(c,"Group Name Incomplete",Toast.LENGTH_SHORT).show();
         else if(inpDesc.length() == 0)
             Toast.makeText(c,"Group Description Incomplete",Toast.LENGTH_SHORT).show();
+        else if(inpMembers.length() == 0)
+            Toast.makeText(c," Max Members Incomplete",Toast.LENGTH_SHORT).show();
         else if(!membersSet.contains(inpMembers) && !memberNumSet.contains(Integer.parseInt(inpMembers)))
             Toast.makeText(c,"Select Group Members from List. Maximum is 100.",Toast.LENGTH_SHORT).show();
         else if(!subjectsSet.contains(inpSubject))

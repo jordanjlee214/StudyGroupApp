@@ -15,7 +15,7 @@
         android:hint="Write a message..."
         android:windowSoftInputMode="stateVisible|adjustPan"
         android:fontFamily="@font/circular_book"
-        android:id="@+id/messageArea"
+        android:id="@+id/messageTexting"
         android:maxHeight="80dp"
         android:layout_marginStart="10sp"
         />

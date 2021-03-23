@@ -3,16 +3,133 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/darkBackground"
     android:layout_height="match_parent">
     <!--TODO: put ur messaging app thing here-->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/messages_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="messagefragment"
-        android:textColor="@color/lime"
+        android:text="@string/messages_header"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/nexa_bold"
+        android:background="@drawable/group_info_description"
+        app:layout_constraintVertical_bias="0.0"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="40sp"/>
+        android:textSize="18sp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messages_border1"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messages_borderT"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.094" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messages_borderL"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0065" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messages_borderR"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9935" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messages_borderB"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.996" />
+
+
+    <View
+        android:id="@+id/messageBorder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messages_border1"
+        />
+
+    <View
+        android:id="@+id/messageArea"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/darkBackground"
+        app:layout_constraintBottom_toTopOf="@id/messages_borderB"
+        app:layout_constraintEnd_toStartOf="@id/messages_borderR"
+        app:layout_constraintStart_toEndOf="@id/messages_borderL"
+        app:layout_constraintTop_toBottomOf="@id/messages_borderT"
+        app:layout_constraintVertical_bias="1.0">
+
+    </View>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/messages_scrollView"
+        app:layout_constraintTop_toTopOf="@id/messageArea"
+        app:layout_constraintBottom_toTopOf="@id/messages_bottomBorder"
+        app:layout_constraintLeft_toLeftOf="@id/messageArea"
+        app:layout_constraintRight_toRightOf="@id/messageArea"
+        android:isScrollContainer="false"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="top"
+            android:id="@+id/messages_layout">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3sp"
+        android:id="@+id/messages_bottomBorder"
+        android:background="@color/mainTextColor"
+        app:layout_constraintBottom_toTopOf="@id/sendMessage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </View>
+
+    <include
+        layout="@layout/chatroom_messagearea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:id="@+id/sendMessage"
+        app:layout_constraintTop_toTopOf="@id/messageArea"
+        app:layout_constraintBottom_toBottomOf="@id/messageArea"
+        app:layout_constraintLeft_toLeftOf="@id/messageArea"
+        app:layout_constraintRight_toRightOf="@id/messageArea"
+        app:layout_constraintVertical_bias="1"
+        />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

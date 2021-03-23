@@ -1,16 +1,18 @@
 package com.leejordan.studygroupapp;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Message {
     private String messageText;
-    private String messageUser;
+    private String messageUserID;
     private long messageTime;
     private String studyGroupId;
 
     public Message(String messageText, String messageUser, String studyGroupId) {
         this.messageText = messageText;
-        this.messageUser = messageUser;
+        this.messageUserID = messageUser;
         this.studyGroupId = studyGroupId;
 
         // Initialize to current time
@@ -29,12 +31,12 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public String getMessageUserID() {
+        return messageUserID;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public void setMessageUserID(String messageUser) {
+        this.messageUserID = messageUser;
     }
 
     public long getMessageTime() {
@@ -52,4 +54,14 @@ public class Message {
     public void setStudyGroupId(String studyGroupId) {
         this.studyGroupId = studyGroupId;
     }
+
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("messageUserID", messageUserID);
+        map.put("messageText", messageText );
+        map.put("messageTime", messageTime);
+        map.put("groupID", studyGroupId);
+        return map;
+    }
+
 }

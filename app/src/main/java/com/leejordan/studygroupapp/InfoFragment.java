@@ -29,7 +29,7 @@ public class InfoFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private DatabaseReference descRef;
+    private DatabaseReference groupRef;
     private String groupDesc;
     private String currentGroupId;
     // TODO: Rename and change types of parameters
@@ -76,20 +76,12 @@ public class InfoFragment extends Fragment {
 
         currentGroupId = this.getArguments().getString("currentgroupid");
         final TextView groupinfo_desc = view.findViewById(R.id.groupinfo_description);
-        Log.i("hi",currentGroupId);
-        descRef = FirebaseDatabase.getInstance().getReference().child("Description").child(currentGroupId);
-        descRef.addValueEventListener(new ValueEventListener() {
+        groupRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(currentGroupId);
+        groupRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Object ob = snapshot.getValue();
-                if(ob != null) {
-                    groupDesc = ob.toString();
-                    groupinfo_desc.setText(groupDesc);
-                }
-                else{
-                    groupinfo_desc.setText("No Group Description");
-                }
-
+                String desc = snapshot.child("description").getValue().toString();
+                groupinfo_desc.setText(desc);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }

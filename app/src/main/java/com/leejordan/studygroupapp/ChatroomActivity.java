@@ -64,7 +64,7 @@ public class ChatroomActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.chatroomProfile);
         otherUsernameView = findViewById(R.id.chatroomUsername);
         scrollView = findViewById(R.id.scrollView);
-        messageArea = findViewById(R.id.messageArea);
+        messageArea = findViewById(R.id.messageTexting);
         sendButton = findViewById(R.id.sendButton);
         layout = findViewById(R.id.layout1);
         clearMessages = findViewById(R.id.clearMessages);

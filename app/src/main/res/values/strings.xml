@@ -26,6 +26,8 @@
     <string name="finishSetup">"  Finish Setup "</string>
     <string name="testLogout">"  Logout  "</string>
     <string name="groups_tab_header">"GROUPS (...)"</string>
+    <string name="loading">"Loading..."</string>
+    <string name="pending_dots">"..."</string>
     <string name="toChatroom">" Chatroom "</string>
     <string name="noUsers">" No Users Found! "</string>
     <string name="userList">"USERS"</string>
@@ -71,6 +73,7 @@
     <string name="searchFilter_section2">Enter Group Code</string>
     <string name="searchList_noGroups">"There are no groups within your search parameters."</string>
     <string name="searchList_goBack">"    Go Back    "</string>
+    <string name="messages_header">GROUP CHAT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

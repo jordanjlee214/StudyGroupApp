@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         {
 
 
-            FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef, GroupListItem.class).build();
+            FirebaseRecyclerOptions<GroupListItem> options = new FirebaseRecyclerOptions.Builder<GroupListItem>().setQuery(groupsOfUserRef.orderByChild("groupName"), GroupListItem.class).build();
 
         FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder> adapter = new FirebaseRecyclerAdapter<GroupListItem, GroupListViewHolder>(options) {
             @Override
@@ -240,6 +240,19 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         CurrentGroup.currentGroupID = listPositionToGroupID.get(position);
+                        groupsRef.child(CurrentGroup.currentGroupID).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                HashMap<Object, String> userMap = (HashMap<Object, String>) snapshot.child("users").getValue();
+                                CurrentGroup.iDToUsers = userMap;
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                         sendToGroup();
                     }
                 });
