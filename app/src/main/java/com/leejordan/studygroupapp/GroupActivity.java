@@ -120,7 +120,7 @@ public class GroupActivity extends AppCompatActivity {
             if (savedInstanceState != null){
                 return;
             }
-            fragmentManager.beginTransaction().add(R.id.groupfragment, messageFragment).commit();
+
             fragmentManager.beginTransaction().add(R.id.groupfragment, studyMatsFragment).commit();
             fragmentManager.beginTransaction().add(R.id.groupfragment, infoFragment).commit();
             infobutton.setEnabled(false);
@@ -147,7 +147,11 @@ public class GroupActivity extends AppCompatActivity {
     public void openGroupMessages(View view) {
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
-        ft.replace(R.id.groupfragment, messageFragment).commit();
+        Bundle b = new Bundle();
+        b.putString("currentgroupid",CurrentGroup.currentGroupID);
+        MessageFragment msg = new MessageFragment();
+        msg.setArguments(b);
+        ft.replace(R.id.groupfragment, msg).commit();
         infobutton.setEnabled(true);
         messagesbutton.setEnabled(false);
         calendarbutton.setEnabled(true);
