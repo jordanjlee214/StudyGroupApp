@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/test_group_name"
-        android:layout_width="180dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nexa_bold"
         android:padding="8dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@id/test_group_header_background"
         app:layout_constraintLeft_toLeftOf="@id/test_group_header_background"
         app:layout_constraintRight_toRightOf="@id/test_group_header_background"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.32"
         android:shadowDx="4"
         android:shadowDy="4"
         android:shadowRadius="7"
@@ -62,10 +62,10 @@
 
     <TextView
         android:id="@+id/test_group_members"
-        android:layout_width="80dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/pending_dots"
+        android:text="99/99"
         android:textSize="15dp"
         android:textAlignment="viewStart"
         android:textColor="@color/mainTextColor"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="@id/test_group_header_background"
         app:layout_constraintLeft_toLeftOf="@id/test_group_header_background"
         app:layout_constraintRight_toRightOf="@id/test_group_header_background"
-        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintVertical_bias="0.5"
         android:shadowDx="4"
         android:shadowDy="4"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="@id/test_group_header_background"
         app:layout_constraintLeft_toLeftOf="@id/test_group_header_background"
         app:layout_constraintRight_toRightOf="@id/test_group_header_background"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.78"
         app:srcCompat="@drawable/groups" />
 
     <androidx.constraintlayout.widget.Guideline
