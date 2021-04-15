@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".CalendarFragment">
+
+    <!--
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:theme="@style/CalenderViewCustom"
+        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+        -->
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pagesColor="@color/black"
+        app:daysLabelsColor="@color/mainTextColor"
+        app:selectionColor="@color/colorAccent"
+        app:selectionLabelColor="@color/mainTextColor"
+        app:highlightedDaysLabelsColor="@color/colorAccent"
+        app:todayLabelColor="@color/blue"
+        app:abbreviationsBarColor="@color/colorAccent"
+        app:anotherMonthsDaysLabelsColor="@color/gray"/>
+
+</FrameLayout>

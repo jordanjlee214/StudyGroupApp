@@ -37,6 +37,7 @@ public class GroupActivity extends AppCompatActivity {
     private InfoFragment infoFragment;
     private MessageFragment messageFragment;
     private StudyMatsFragment studyMatsFragment;
+    private CalendarFragment calendarFragment;
     private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class GroupActivity extends AppCompatActivity {
         infoFragment = new InfoFragment();
         messageFragment = new MessageFragment();
         studyMatsFragment = new StudyMatsFragment();
+        calendarFragment = new CalendarFragment();
         fragmentManager = getSupportFragmentManager();
 
         Bundle b = new Bundle();
@@ -161,7 +163,15 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     public void openGroupCalendar(View view) {
-        Toast.makeText(GroupActivity.this, "Calendar feature is not available yet.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(GroupActivity.this, "Calendar feature is not available yet.", Toast.LENGTH_SHORT).show();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
+        ft.replace(R.id.groupfragment, calendarFragment).commit();
+        infobutton.setEnabled(true);
+        messagesbutton.setEnabled(true);
+        calendarbutton.setEnabled(false);
+        flashcardsbutton.setEnabled(true);
+        studymatsbutton.setEnabled(true);
     }
 
     public void openGroupFlashcards(View view) {

@@ -12,4 +12,18 @@
         <item name="fontFamily">@font/circular_bold</item>
     </style>
 
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/darkGreen</item>
+        <item name="colorPrimary">@color/mainTextColor</item>
+    </style>
+
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:weekNumberColor">@color/darkGreen</item>
+    </style>
+
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/mainTextColor</item>
+    </style>
+
 </resources>
